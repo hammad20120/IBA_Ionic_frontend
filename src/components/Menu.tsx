@@ -7,91 +7,155 @@ import {
   IonListHeader,
   IonMenu,
   IonMenuToggle,
-  IonNote,
-} from '@ionic/react';
+} from "@ionic/react";
 
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
-import './Menu.css';
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import {
+  gridOutline,
+  gridSharp,
+  paperPlaneOutline,
+  paperPlaneSharp,
+  refreshOutline,
+  refreshSharp,
+  checkmarkOutline,
+  checkmarkSharp,
+  checkmarkDoneOutline,
+  checkmarkDoneSharp,
+  carOutline,
+  carSharp,
+} from "ionicons/icons";
+import "./Menu.css";
 
 interface AppPage {
   url: string;
   iosIcon: string;
   mdIcon: string;
   title: string;
+  type: "submenu" | "link";
+  subPages: { title: string; url: string; iosIcon: string; mdIcon: string }[];
 }
 
 const appPages: AppPage[] = [
   {
-    title: 'Inbox',
-    url: '/page/Inbox',
-    iosIcon: mailOutline,
-    mdIcon: mailSharp
+    title: "Dashboard",
+    url: "/page/Dashboard",
+    iosIcon: gridOutline,
+    mdIcon: gridSharp,
+    type: "link",
+    subPages: [],
   },
   {
-    title: 'Outbox',
-    url: '/page/Outbox',
+    title: "Requests",
+    url: "",
     iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
+    mdIcon: paperPlaneSharp,
+    type: "submenu",
+    subPages: [
+      {
+        title: "Pending",
+        url: "/page/Pending",
+        iosIcon: refreshOutline,
+        mdIcon: refreshSharp,
+      },
+      {
+        title: "Approved",
+        url: "/page/Approved",
+        iosIcon: checkmarkOutline,
+        mdIcon: checkmarkSharp,
+      },
+      {
+        title: "Dispatched",
+        url: "/page/Dispatched",
+        iosIcon: carOutline,
+        mdIcon: carSharp,
+      },
+      {
+        title: "Completed",
+        url: "/page/Completed",
+        iosIcon: checkmarkDoneOutline,
+        mdIcon: checkmarkDoneSharp,
+      },
+    ],
   },
-  {
-    title: 'Favorites',
-    url: '/page/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
-  },
-  {
-    title: 'Archived',
-    url: '/page/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
-  },
-  {
-    title: 'Trash',
-    url: '/page/Trash',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp
-  },
-  {
-    title: 'Spam',
-    url: '/page/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
-  }
 ];
-
-const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
 const Menu: React.FC = () => {
   const location = useLocation();
 
+  const [RequestMenuOpen, setRequestMenuOpen] = useState<Boolean>(false);
+
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
-        <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+        <IonList id="menu-list">
+          <IonListHeader>Menu</IonListHeader>
           {appPages.map((appPage, index) => {
             return (
-              <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                  <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                  <IonLabel>{appPage.title}</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
+              <React.Fragment key={index}>
+                {appPage.type === "link" ? (
+                  <IonMenuToggle autoHide={false}>
+                    <IonItem
+                      className={
+                        location.pathname === appPage.url ? "selected" : ""
+                      }
+                      routerLink={appPage.url}
+                      routerDirection="none"
+                      lines="none"
+                      detail={false}
+                    >
+                      <IonIcon
+                        slot="start"
+                        ios={appPage.iosIcon}
+                        md={appPage.mdIcon}
+                      />
+                      <IonLabel>{appPage.title}</IonLabel>
+                    </IonItem>
+                  </IonMenuToggle>
+                ) : (
+                  <>
+                    <IonItem
+                      key={index}
+                      button
+                      onClick={() => setRequestMenuOpen(!RequestMenuOpen)}
+                    >
+                      <IonIcon
+                        slot="start"
+                        ios={appPage.iosIcon}
+                        md={appPage.mdIcon}
+                      />
+                      <IonLabel>{appPage.title}</IonLabel>
+                    </IonItem>
+                    {RequestMenuOpen &&
+                      appPage.subPages.map((subPage, index) => {
+                        return (
+                          <IonMenuToggle key={index} autoHide={false}>
+                            <IonItem
+                              className={
+                                location.pathname === subPage.url
+                                  ? "selected"
+                                  : ""
+                              }
+                              routerLink={subPage.url}
+                              routerDirection="none"
+                              lines="none"
+                              detail={false}
+                            >
+                              <IonIcon
+                                slot="start"
+                                ios={subPage.iosIcon}
+                                md={subPage.mdIcon}
+                              />
+                              <IonLabel>{subPage.title}</IonLabel>
+                            </IonItem>
+                          </IonMenuToggle>
+                        );
+                      })}
+                  </>
+                )}
+              </React.Fragment>
             );
           })}
-        </IonList>
-
-        <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
         </IonList>
       </IonContent>
     </IonMenu>
