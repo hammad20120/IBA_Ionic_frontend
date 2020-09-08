@@ -1,16 +1,6 @@
-import {
-  IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-} from "@ionic/react";
+import { IonContent, IonList, IonListHeader, IonMenu } from "@ionic/react";
 
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import {
   gridOutline,
   gridSharp,
@@ -26,6 +16,8 @@ import {
   carSharp,
 } from "ionicons/icons";
 import "./Menu.css";
+import MenuItem from "./MenuItem";
+import SubMenuItem from "./SubMenuItem";
 
 interface AppPage {
   url: string;
@@ -81,8 +73,6 @@ const appPages: AppPage[] = [
 ];
 
 const Menu: React.FC = () => {
-  const location = useLocation();
-
   const [RequestMenuOpen, setRequestMenuOpen] = useState<Boolean>(false);
 
   return (
@@ -94,64 +84,13 @@ const Menu: React.FC = () => {
             return (
               <React.Fragment key={index}>
                 {appPage.type === "link" ? (
-                  <IonMenuToggle autoHide={false}>
-                    <IonItem
-                      className={
-                        location.pathname === appPage.url ? "selected" : ""
-                      }
-                      routerLink={appPage.url}
-                      routerDirection="none"
-                      lines="none"
-                      detail={false}
-                    >
-                      <IonIcon
-                        slot="start"
-                        ios={appPage.iosIcon}
-                        md={appPage.mdIcon}
-                      />
-                      <IonLabel>{appPage.title}</IonLabel>
-                    </IonItem>
-                  </IonMenuToggle>
+                  <MenuItem appPage={appPage} />
                 ) : (
-                  <>
-                    <IonItem
-                      key={index}
-                      button
-                      onClick={() => setRequestMenuOpen(!RequestMenuOpen)}
-                    >
-                      <IonIcon
-                        slot="start"
-                        ios={appPage.iosIcon}
-                        md={appPage.mdIcon}
-                      />
-                      <IonLabel>{appPage.title}</IonLabel>
-                    </IonItem>
-                    {RequestMenuOpen &&
-                      appPage.subPages.map((subPage, index) => {
-                        return (
-                          <IonMenuToggle key={index} autoHide={false}>
-                            <IonItem
-                              className={
-                                location.pathname === subPage.url
-                                  ? "selected"
-                                  : ""
-                              }
-                              routerLink={subPage.url}
-                              routerDirection="none"
-                              lines="none"
-                              detail={false}
-                            >
-                              <IonIcon
-                                slot="start"
-                                ios={subPage.iosIcon}
-                                md={subPage.mdIcon}
-                              />
-                              <IonLabel>{subPage.title}</IonLabel>
-                            </IonItem>
-                          </IonMenuToggle>
-                        );
-                      })}
-                  </>
+                  <SubMenuItem
+                    RequestMenuOpen={RequestMenuOpen}
+                    setRequestMenuOpen={setRequestMenuOpen}
+                    appPage={appPage}
+                  />
                 )}
               </React.Fragment>
             );
