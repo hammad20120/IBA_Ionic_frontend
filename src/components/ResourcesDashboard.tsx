@@ -9,19 +9,15 @@ import {
   IonRadio,
   IonItemDivider,
 } from "@ionic/react";
+import { textOutline } from "ionicons/icons";
 
 const ResourcesDashboard: React.FC = () => {
   const [selected, setSelected] = useState<string>("Food");
   return (
-    <div style={{ height: "50%", width: "40%" }} className="ion-padding">
-      <IonContent
-        scrollEvents={true}
-        onIonScrollStart={() => {}}
-        onIonScroll={() => {}}
-        onIonScrollEnd={() => {}}
-      >
-        <h1>Resources</h1>
-        <IonList>
+    <div style={{ height: "100%", width: "100%" }} className="ion-padding">
+      <IonContent>
+        <h1 style={{textAlign: "center"}}>Resources</h1>
+        <IonList lines="none">
           <IonRadioGroup
             value={selected}
             onIonChange={(e) => setSelected(e.detail.value)}

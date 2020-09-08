@@ -7,7 +7,9 @@ import {
   IonTitle,
   IonToolbar,
   IonButton,
-  IonCard
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
 } from "@ionic/react";
 import React from "react";
 import { useParams } from "react-router";
@@ -31,22 +33,34 @@ const Page: React.FC = () => {
       </IonHeader>
 
       <IonContent class="bg">
-      <IonCard>
-        <div
-          style={{ width: "60%", height: "80vh" }}
-          className="ion-float-right ion-padding"
-        >
-          <Map
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTTqHEnOff6WlFNHwdQwBBLjEA4a-DLI&v=3.exp&libraries=geometry,drawing,places"
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `100%` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-          />
-        </div>
-        <ResourcesDashboard />
-        <Alerts />
-        <IonButton className="ion-padding">Proceed</IonButton>
+        <IonCard>
+          <IonCardHeader className="ion-text-center">
+            <h3 style={{ color: "black", fontSize: "200%" }}>MAP</h3>
+          </IonCardHeader>
+          <IonCardContent>
+            <div
+              style={{ width: "100%", height: "70vh" }}
+              className="ion-padding"
+            >
+              <Map
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwTTqHEnOff6WlFNHwdQwBBLjEA4a-DLI&v=3.exp&libraries=geometry,drawing,places"
+                loadingElement={<div style={{ height: `100%` }} />}
+                containerElement={<div style={{ height: `100%` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+              />
+            </div>
+          </IonCardContent>
         </IonCard>
+
+        <IonCard class="third-card" className="ion-float-right">
+          <Alerts />
+        </IonCard>
+
+        <IonCard class="second-card">
+          <ResourcesDashboard />
+        </IonCard>
+
+        {/* <IonButton className="ion-padding">Proceed</IonButton>  */}
       </IonContent>
     </IonPage>
   );

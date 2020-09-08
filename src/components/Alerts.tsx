@@ -3,15 +3,10 @@ import { IonContent, IonList, IonItem, IonLabel } from "@ionic/react";
 
 const Alerts: React.FC = () => {
   return (
-    <div style={{ height: "40%", width: "40%" }} className="ion-padding">
-      <IonContent
-        scrollEvents={true}
-        onIonScrollStart={() => {}}
-        onIonScroll={() => {}}
-        onIonScrollEnd={() => {}}
-      >
-        <h1>High Alerts</h1>
-        <IonList>
+    <div style={{ height: "100%", width: "100%" }} className="ion-padding">
+      <IonContent>
+        <h1 style={{textAlign: "center"}}>High Alerts</h1>
+        <IonList lines="none">
           <IonItem>
             <IonLabel>Covid 19</IonLabel>
           </IonItem>
