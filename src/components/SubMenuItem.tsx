@@ -22,6 +22,7 @@ const SubMenuItem: React.FC<{
       <IonItem
         button
         onClick={() => props.setRequestMenuOpen(!props.RequestMenuOpen)}
+        lines="none"
       >
         <IonIcon
           slot="start"

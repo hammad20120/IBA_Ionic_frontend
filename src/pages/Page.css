@@ -1,0 +1,20 @@
+.bg-class{
+    --background: linear-gradient( to left, rgba(25, 223, 225, 1) 0%, rgba(25, 223, 225, 1) 30%, rgba(86, 119, 135, 1) 80%, rgba(86, 119, 135, 1) 100% );
+  }
+
+ .bg{
+     --background:#f2edf3;
+ } 
+
+ ion-toolbar{
+    --min-height:77px!important;
+    --ion-text-color: white;
+  }
+
+  ion-card{
+    height: 100%;
+    background: white;
+    margin: 35px;
+    border-radius: 10px;
+  }
+

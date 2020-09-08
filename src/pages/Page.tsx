@@ -7,6 +7,7 @@ import {
   IonTitle,
   IonToolbar,
   IonButton,
+  IonCard
 } from "@ionic/react";
 import React from "react";
 import { useParams } from "react-router";
@@ -21,7 +22,7 @@ const Page: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar class="bg-class">
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
@@ -29,7 +30,8 @@ const Page: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent>
+      <IonContent class="bg">
+      <IonCard>
         <div
           style={{ width: "60%", height: "80vh" }}
           className="ion-float-right ion-padding"
@@ -44,6 +46,7 @@ const Page: React.FC = () => {
         <ResourcesDashboard />
         <Alerts />
         <IonButton className="ion-padding">Proceed</IonButton>
+        </IonCard>
       </IonContent>
     </IonPage>
   );
