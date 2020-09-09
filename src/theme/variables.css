@@ -82,6 +82,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-high3: rgb(245, 131, 131);
   --ion-color-high4: rgb(238, 171, 171);
   --ion-color-themecolor: rgba(86, 119, 135, 1);
+  --ion-color-buttons: #f2edf3
 }
 
 .ion-color-high1 {
@@ -103,6 +104,10 @@ http://ionicframework.com/docs/theming/ */
 
 .ion-color-themecolor {
   --ion-color-base: var(--ion-color-themecolor);
+}
+
+.ion-color-buttons {
+  --ion-color-base: var(--ion-color-buttons);
 }
 
 @media (prefers-color-scheme: light) {
