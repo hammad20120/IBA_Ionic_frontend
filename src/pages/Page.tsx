@@ -17,6 +17,7 @@ import "./Page.css";
 import ResourcesDashboard from "../components/ResourcesDashboard";
 import Alerts from "../components/Alerts";
 import Map from "../components/Map";
+import Search from "../components/Search"
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -28,7 +29,8 @@ const Page: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{name}</IonTitle>
+          <IonTitle slot="start" >{name}</IonTitle>
+          <Search />
         </IonToolbar>
       </IonHeader>
 
