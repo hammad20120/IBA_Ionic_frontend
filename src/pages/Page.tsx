@@ -18,6 +18,8 @@ import ResourcesDashboard from "../components/ResourcesDashboard";
 import Alerts from "../components/Alerts";
 import Map from "../components/Map";
 import Search from "../components/Search";
+import SearchLocation from "../components/SearchLocation";
+import Slider from "../components/Slider";
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -43,7 +45,7 @@ const Page: React.FC = () => {
           </IonCardHeader>
           <IonCardContent>
             <div
-              style={{ width: "100%", height: "70vh" }}
+              style={{ width: "60%", height: "70vh", float: "right" }}
               className="ion-padding"
             >
               <Map
@@ -53,6 +55,8 @@ const Page: React.FC = () => {
                 mapElement={<div style={{ height: `100%` }} />}
               />
             </div>
+            <SearchLocation />
+            <Slider />
           </IonCardContent>
         </IonCard>
 
