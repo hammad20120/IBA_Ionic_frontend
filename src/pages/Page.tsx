@@ -17,7 +17,7 @@ import "./Page.css";
 import ResourcesDashboard from "../components/ResourcesDashboard";
 import Alerts from "../components/Alerts";
 import Map from "../components/Map";
-import Search from "../components/Search"
+import Search from "../components/Search";
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -29,7 +29,7 @@ const Page: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle slot="start" >{name}</IonTitle>
+          <IonTitle slot="start">{name}</IonTitle>
           <Search />
         </IonToolbar>
       </IonHeader>
@@ -37,7 +37,9 @@ const Page: React.FC = () => {
       <IonContent class="bg">
         <IonCard>
           <IonCardHeader className="ion-text-center">
-            <h3 style={{ color: "black", fontSize: "200%" }}>MAP</h3>
+            <h3 style={{ color: "black", fontSize: "200%" }}>
+              Nearby Crisis Location (MAP)
+            </h3>
           </IonCardHeader>
           <IonCardContent>
             <div
