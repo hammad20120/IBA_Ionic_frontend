@@ -75,6 +75,29 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** custom designed colors **/
+  --ion-color-high1: rgb(202, 17, 17);
+  --ion-color-high2: rgb(238, 71, 71);
+  --ion-color-high3: rgb(245, 131, 131);
+  --ion-color-high4: rgb(238, 171, 171);
+}
+
+.ion-color-high1 {
+  --ion-color-base: var(--ion-color-high1);
+}
+
+.ion-color-high2 {
+  --ion-color-base: var(--ion-color-high2);
+}
+
+.ion-color-high3 {
+  --ion-color-base: var(--ion-color-high3);
+}
+
+
+.ion-color-high4 {
+  --ion-color-base: var(--ion-color-high4);
 }
 
 @media (prefers-color-scheme: light) {
