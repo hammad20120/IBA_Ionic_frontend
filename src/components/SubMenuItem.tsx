@@ -1,6 +1,7 @@
 import React from "react";
 import { IonItem, IonIcon, IonLabel, IonMenuToggle } from "@ionic/react";
 import { useLocation } from "react-router";
+import "./SubMenuItem.css";
 
 interface AppPage {
   url: string;
@@ -43,6 +44,7 @@ const SubMenuItem: React.FC<{
                 detail={false}
               >
                 <IonIcon
+                  className="submenuIcon"
                   slot="start"
                   ios={subPage.iosIcon}
                   md={subPage.mdIcon}
