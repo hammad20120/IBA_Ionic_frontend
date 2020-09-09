@@ -64,7 +64,10 @@ const Page: React.FC = () => {
           <ResourcesDashboard />
         </IonCard>
 
-        {/* <IonButton className="ion-padding">Proceed</IonButton>  */}
+
+         <IonButton style={{float: "right", marginRight: "37px", marginBottom: "35px"}} color="high1">Clear</IonButton>  
+         <IonButton style={{float: "right", marginRight: "25px", marginBottom: "35px"}} color="themecolor">Proceed</IonButton> 
+      
       </IonContent>
     </IonPage>
   );
