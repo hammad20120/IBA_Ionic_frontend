@@ -10,17 +10,16 @@ import {
 } from "@ionic/react";
 
 const Search: React.FC = () => {
-  const [searchText, setSearchText] = useState("Search Resources/Crisis");
+  const [searchText, setSearchText] = useState<string>("");
   return (
-    <div style={{ width: "80%", float:"right"}} className="ion-padding">
+    <div style={{ width: "80%", float: "right" }} className="ion-padding">
       <IonSearchbar
         color="black"
+        placeholder="Search Resources/Crisis"
         value={searchText}
         onIonChange={(e) => setSearchText(e.detail.value!)}
         showCancelButton="never"
-        >
-      </IonSearchbar>
-    
+      ></IonSearchbar>
     </div>
   );
 };
