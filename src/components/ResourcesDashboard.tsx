@@ -7,8 +7,7 @@ import {
   IonCard,
   IonRippleEffect,
   IonRow,
-  IonCol,
-  IonCardContent,
+  IonCol
 } from "@ionic/react";
 import { fastFood, medkit, car, man, bonfire, star } from "ionicons/icons";
 import "./Resources.css";

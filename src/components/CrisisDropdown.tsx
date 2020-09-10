@@ -18,9 +18,7 @@ const CrisisDropdown: React.FC = () => {
         <IonLabel style={{ fontSize: "120%" }}>Select Crisis Type</IonLabel>
         <IonSelect
           value={crisis}
-          okText="Ok"
-          cancelText="Dismiss"
-          interface="popover"
+          interface="action-sheet"
           interfaceOptions={options}
           onIonChange={(e) => setCrisis(e.detail.value)}
         >
