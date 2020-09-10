@@ -1,0 +1,17 @@
+ .dashboardbutton{
+  height: 90px;
+  width: 100px;
+  font-size: 10px;
+  color: black;
+  margin-bottom: 12px;
+  margin-top: 15px;
+  margin-left: 9px;
+  margin-right: 9px;
+  
+}
+
+.dashboardicon{
+    height: 30px;
+    width: 30px;
+    color: black;
+}
