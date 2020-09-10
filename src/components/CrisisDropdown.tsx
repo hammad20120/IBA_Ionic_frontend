@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { IonItem, IonLabel, IonSelect, IonSelectOption } from "@ionic/react";
+import "./CrisisDropDown.css";
 
 const CrisisDropdown: React.FC = () => {
   const [crisis, setCrisis] = useState<string>();
+
+  const options = {
+    cssClass: "my-custom-interface",
+  };
 
   return (
     <div
@@ -15,6 +20,8 @@ const CrisisDropdown: React.FC = () => {
           value={crisis}
           okText="Ok"
           cancelText="Dismiss"
+          interface="popover"
+          interfaceOptions={options}
           onIonChange={(e) => setCrisis(e.detail.value)}
         >
           <IonSelectOption value="covid">Covid'19</IonSelectOption>
