@@ -3,8 +3,6 @@ import {
   IonContent,
   IonItem,
   IonIcon,
-  IonButton,
-  IonSelect,
   IonGrid,
   IonCard,
   IonRippleEffect,

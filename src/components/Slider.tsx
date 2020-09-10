@@ -25,11 +25,12 @@ export const Slider: React.FC = () => {
   };
   return (
     <div
-      style={{ color: "black", width: "40%", marginTop: "50px" }}
+      style={{ color: "black", width: "40%" , marginTop: "10px"}}
       className="ion-padding"
     >
-      <p style={{ fontSize: "130%", paddingLeft: "10px" }}>Crisis Severity</p>
-
+      <IonItem lines="none">
+      <IonLabel style={{ fontSize: "120%"}}>Crisis Severity</IonLabel>
+      </IonItem>
       <IonItem lines="none">
         <IonRange
           max={75}
@@ -41,15 +42,15 @@ export const Slider: React.FC = () => {
         />
       </IonItem>
       <IonItem lines="none">
-        <IonLabel>
+        <IonLabel style={{ fontSize: "110%"}}>
           Severity:
           {value < 25
-            ? "Low"
+            ? " Low"
             : value >= 25 && value < 50
-            ? "Medium"
+            ? " Medium"
             : value >= 50 && value < 75
-            ? "High"
-            : "Extreme"}
+            ? " High"
+            : " Extreme"}
         </IonLabel>
       </IonItem>
     </div>

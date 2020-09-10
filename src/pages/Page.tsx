@@ -20,6 +20,7 @@ import Map from "../components/Map";
 import Search from "../components/Search";
 import SearchLocation from "../components/SearchLocation";
 import Slider from "../components/Slider";
+import CrisisDropdown from "../components/CrisisDropdown";
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -56,7 +57,9 @@ const Page: React.FC = () => {
               />
             </div>
             <SearchLocation />
+            <CrisisDropdown />
             <Slider />
+     
           </IonCardContent>
         </IonCard>
 
