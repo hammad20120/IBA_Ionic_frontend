@@ -1,10 +1,10 @@
 .dashboardbutton {
   height: 90px;
-  width: 100px;
-  font-size: 10px;
+  width: 100%;
+  font-size: 0.6rem;
   color: black;
-  margin-bottom: 12px;
-  margin-top: 12px;
+  margin-bottom: 1em;
+  margin-top: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +14,11 @@
   height: 30px;
   width: 30px;
   color: black;
+}
+
+.iconHolder {
+  display: flex;
+  justify-content: center;
 }
 
 ion-item > ion-card :hover {

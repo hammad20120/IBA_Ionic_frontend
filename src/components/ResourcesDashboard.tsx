@@ -8,6 +8,7 @@ import {
   IonRippleEffect,
   IonRow,
   IonCol,
+  IonCardContent,
 } from "@ionic/react";
 import { fastFood, medkit, car, man, bonfire, star } from "ionicons/icons";
 import "./Resources.css";
@@ -45,14 +46,14 @@ const ResourcesDashboard: React.FC = () => {
   return (
     <div style={{ height: "100%", width: "100%" }} className="ion-padding">
       <IonContent>
-        <IonGrid>
+        <IonGrid fixed={true}>
           <IonRow>
             <IonCol>
               <h1 className={"cardHeader"}>Resources</h1>
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol>
+            <IonCol size="6">
               <IonItem lines="none">
                 <IonCard
                   color="buttons"
@@ -63,11 +64,12 @@ const ResourcesDashboard: React.FC = () => {
                 >
                   <IonRippleEffect></IonRippleEffect>
                   <div>
-                    <IonIcon
-                      icon={fastFood}
-                      className="dashboardicon"
-                    ></IonIcon>
-                    <br />
+                    <div className="iconHolder">
+                      <IonIcon
+                        icon={fastFood}
+                        className="dashboardicon"
+                      ></IonIcon>
+                    </div>
                     <br />
                     Food
                   </div>
@@ -75,7 +77,7 @@ const ResourcesDashboard: React.FC = () => {
               </IonItem>
             </IonCol>
 
-            <IonCol>
+            <IonCol size="6">
               <IonItem lines="none">
                 <IonCard
                   color="buttons"
@@ -88,8 +90,9 @@ const ResourcesDashboard: React.FC = () => {
                 >
                   <IonRippleEffect></IonRippleEffect>
                   <div>
-                    <IonIcon icon={star} className="dashboardicon"></IonIcon>
-                    <br />
+                    <div className="iconHolder">
+                      <IonIcon icon={star} className="dashboardicon"></IonIcon>
+                    </div>
                     <br />
                     Ambulance
                   </div>
@@ -99,7 +102,7 @@ const ResourcesDashboard: React.FC = () => {
           </IonRow>
 
           <IonRow>
-            <IonCol>
+            <IonCol size="6">
               <IonItem lines="none">
                 <IonCard
                   color="buttons"
@@ -112,8 +115,12 @@ const ResourcesDashboard: React.FC = () => {
                 >
                   <IonRippleEffect></IonRippleEffect>
                   <div>
-                    <IonIcon icon={bonfire} className="dashboardicon"></IonIcon>
-                    <br />
+                    <div className="iconHolder">
+                      <IonIcon
+                        icon={bonfire}
+                        className="dashboardicon"
+                      ></IonIcon>
+                    </div>
                     <br />
                     Fire Truck
                   </div>
@@ -121,7 +128,7 @@ const ResourcesDashboard: React.FC = () => {
               </IonItem>
             </IonCol>
 
-            <IonCol>
+            <IonCol size="6">
               <IonItem lines="none">
                 <IonCard
                   color="buttons"
@@ -134,8 +141,12 @@ const ResourcesDashboard: React.FC = () => {
                 >
                   <IonRippleEffect></IonRippleEffect>
                   <div>
-                    <IonIcon icon={medkit} className="dashboardicon"></IonIcon>
-                    <br />
+                    <div className="iconHolder">
+                      <IonIcon
+                        icon={medkit}
+                        className="dashboardicon"
+                      ></IonIcon>
+                    </div>
                     <br />
                     Medical
                   </div>
@@ -145,7 +156,7 @@ const ResourcesDashboard: React.FC = () => {
           </IonRow>
 
           <IonRow>
-            <IonCol>
+            <IonCol size="6">
               <IonItem lines="none">
                 <IonCard
                   color="buttons"
@@ -158,8 +169,9 @@ const ResourcesDashboard: React.FC = () => {
                 >
                   <IonRippleEffect></IonRippleEffect>
                   <div>
-                    <IonIcon icon={man} className="dashboardicon"></IonIcon>
-                    <br />
+                    <div className="iconHolder">
+                      <IonIcon icon={man} className="dashboardicon"></IonIcon>
+                    </div>
                     <br />
                     Rescue Vehicle
                   </div>
@@ -167,7 +179,7 @@ const ResourcesDashboard: React.FC = () => {
               </IonItem>
             </IonCol>
 
-            <IonCol>
+            <IonCol size="6">
               <IonItem lines="none">
                 <IonCard
                   color="buttons"
@@ -180,8 +192,9 @@ const ResourcesDashboard: React.FC = () => {
                 >
                   <IonRippleEffect></IonRippleEffect>
                   <div>
-                    <IonIcon icon={car} className="dashboardicon"></IonIcon>
-                    <br />
+                    <div className="iconHolder">
+                      <IonIcon icon={car} className="dashboardicon"></IonIcon>
+                    </div>
                     <br />
                     Police
                   </div>
