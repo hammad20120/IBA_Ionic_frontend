@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import {
   IonContent,
-  IonList,
-  IonRadioGroup,
-  IonListHeader,
-  IonLabel,
   IonItem,
-  IonRadio,
-  IonItemDivider,
   IonIcon,
   IonButton,
-  IonSelect,
 } from "@ionic/react";
 import { fastFood, medkit, car, man, bonfire, star } from "ionicons/icons";
 import "./Resources.css";
 
 const ResourcesDashboard: React.FC = () => {
-  const [selected, setSelected] = useState<string>("");
+ /* const [selected, setSelected] = useState<string>(""); */
   return (
     <div style={{ height: "100%", width: "100%" }} className="ion-padding">
       <IonContent>

@@ -1,19 +1,9 @@
 import React, { useState } from "react";
 import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonList,
   IonItem,
   IonRange,
   IonLabel,
-  IonIcon,
-  IonItemDivider,
 } from "@ionic/react";
-import { sunny } from "ionicons/icons";
-import { RangeValue } from "@ionic/core";
 import "./Slider.css";
 
 export const Slider: React.FC = () => {

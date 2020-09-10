@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
   IonSearchbar,
-  IonFooter,
 } from "@ionic/react";
 
 const SearchLocation: React.FC = () => {
