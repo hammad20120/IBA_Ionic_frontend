@@ -4,6 +4,30 @@ http://ionicframework.com/docs/theming/ */
 /** Ionic CSS Variables **/
 
 :root {
+  /** Vivid Orange **/
+  --ion-color-vividorange: #fd6104;
+  --ion-color-vividorange-rgb: 253, 97, 4;
+  --ion-color-vividorange-contrast: #000000;
+  --ion-color-vividorange-contrast-rgb: 0, 0, 0;
+  --ion-color-vividorange-shade: #df5504;
+  --ion-color-vividorange-tint: #fd711d;
+
+  /** Orange **/
+  --ion-color-orange: #fd9a01;
+  --ion-color-orange-rgb: 253, 154, 1;
+  --ion-color-orange-contrast: #000000;
+  --ion-color-orange-contrast-rgb: 0, 0, 0;
+  --ion-color-orange-shade: #df8801;
+  --ion-color-orange-tint: #fda41a;
+
+  /** yellow **/
+  --ion-color-yellow: #fef001;
+  --ion-color-yellow-rgb: 254, 240, 1;
+  --ion-color-yellow-contrast: #000000;
+  --ion-color-yellow-contrast-rgb: 0, 0, 0;
+  --ion-color-yellow-shade: #e0d301;
+  --ion-color-yellow-tint: #fef21a;
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -82,7 +106,34 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-high3: rgb(245, 131, 131);
   --ion-color-high4: rgb(238, 171, 171);
   --ion-color-themecolor: rgba(86, 119, 135, 1);
-  --ion-color-buttons: #f2edf3
+  --ion-color-buttons: #f2edf3;
+}
+
+.ion-color-vividorange {
+  --ion-color-base: var(--ion-color-vividorange);
+  --ion-color-base-rgb: var(--ion-color-vividorange-rgb);
+  --ion-color-contrast: var(--ion-color-vividorange-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-vividorange-contrast-rgb);
+  --ion-color-shade: var(--ion-color-vividorange-shade);
+  --ion-color-tint: var(--ion-color-vividorange-tint);
+}
+
+.ion-color-orange {
+  --ion-color-base: var(--ion-color-orange);
+  --ion-color-base-rgb: var(--ion-color-orange-rgb);
+  --ion-color-contrast: var(--ion-color-orange-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-orange-contrast-rgb);
+  --ion-color-shade: var(--ion-color-orange-shade);
+  --ion-color-tint: var(--ion-color-orange-tint);
+}
+
+.ion-color-yellow {
+  --ion-color-base: var(--ion-color-yellow);
+  --ion-color-base-rgb: var(--ion-color-yellow-rgb);
+  --ion-color-contrast: var(--ion-color-yellow-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-yellow-contrast-rgb);
+  --ion-color-shade: var(--ion-color-yellow-shade);
+  --ion-color-tint: var(--ion-color-yellow-tint);
 }
 
 .ion-color-high1 {
@@ -96,7 +147,6 @@ http://ionicframework.com/docs/theming/ */
 .ion-color-high3 {
   --ion-color-base: var(--ion-color-high3);
 }
-
 
 .ion-color-high4 {
   --ion-color-base: var(--ion-color-high4);
