@@ -1,4 +1,4 @@
- .dashboardbutton{
+.dashboardbutton {
   height: 90px;
   width: 100px;
   font-size: 10px;
@@ -7,11 +7,26 @@
   margin-top: 15px;
   margin-left: 9px;
   margin-right: 9px;
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.dashboardicon{
-    height: 30px;
-    width: 30px;
-    color: black;
+.dashboardicon {
+  height: 30px;
+  width: 30px;
+  color: black;
+}
+
+ion-item > ion-card :hover {
+  cursor: pointer;
+}
+
+.dashboardbutton.selected {
+  background: rgba(4, 146, 99, 0.5);
+}
+
+.cardHeader {
+  text-align: center;
+  font-size: 3vw;
 }
