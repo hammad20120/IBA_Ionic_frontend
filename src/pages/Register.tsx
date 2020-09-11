@@ -6,17 +6,34 @@ import {
   IonToolbar,
   IonInput,
   IonButton,
+  IonLoading,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "../firebaseConfig/toast";
+import { registerUser } from "../firebaseConfig/firebaseConfig";
 
 const Register: React.FC = () => {
-  const [username, setUsername] = useState("");
+  const [busy, setBusy] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
 
-  function RegisterUser() {
-    console.log(username, password, cpassword);
+  async function register() {
+    if (email.trim() == "" || password.trim() == "") {
+      toast("Email or Password is empty");
+    }
+
+    setBusy(true);
+    if (password == cpassword) {
+      const res = await registerUser(email, password);
+      if (res) {
+        toast("Signed Up Successfully");
+      }
+    } else {
+      toast("Password does not match");
+    }
+    setBusy(false);
   }
   return (
     <IonPage>
@@ -25,23 +42,27 @@ const Register: React.FC = () => {
           <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonLoading message="Please Wait.." duration={0} isOpen={busy} />
       <IonContent className="ion-padding">
         <IonInput
+          type="email"
           placeholder="Email"
-          onIonChange={(e: any) => setUsername(e.target.value)}
+          onIonChange={(e: any) => setEmail(e.target.value)}
         />
         <IonInput
-        type="password"
+          type="password"
           placeholder="Passowrd"
           onIonChange={(e: any) => setPassword(e.target.value)}
         />
         <IonInput
-        type="password"
+          type="password"
           placeholder="Confirm Passowrd"
           onIonChange={(e: any) => setCpassword(e.target.value)}
         />
-        <IonButton onClick={RegisterUser}>Login</IonButton>
-        <p>Already have an Account <Link to="/login">Login</Link> </p>
+        <IonButton onClick={register}>Sign Up</IonButton>
+        <p>
+          Already have an Account <Link to="/login">Login</Link>{" "}
+        </p>
       </IonContent>
     </IonPage>
   );

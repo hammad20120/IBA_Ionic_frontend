@@ -6,16 +6,25 @@ import {
   IonToolbar,
   IonInput,
   IonButton,
+  IonLoading,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { loginUser } from "../firebaseConfig/firebaseConfig";
+import { toast } from "../firebaseConfig/toast";
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState("");
+  const [busy, setBusy] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function loginUser() {
-    console.log(username, password);
+  async function login() {
+    setBusy(true);
+    const res = await loginUser(email, password);
+    if (res) {
+      toast("Logged in Successfully");
+    }
+    setBusy(false);
   }
   return (
     <IonPage>
@@ -24,19 +33,22 @@ const Login: React.FC = () => {
           <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonLoading message="Please Wait.." duration={0} isOpen={busy} />
       <IonContent className="ion-padding">
         <IonInput
-        type="password"
+          type="email"
           placeholder="Email"
-          onIonChange={(e: any) => setUsername(e.target.value)}
+          onIonChange={(e: any) => setEmail(e.target.value)}
         />
         <IonInput
-        type="password"
+          type="password"
           placeholder="Passowrd"
           onIonChange={(e: any) => setPassword(e.target.value)}
         />
-        <IonButton onClick={loginUser}>Login</IonButton>
-        <p>Don't have an Account <Link to="/register">Register</Link></p>
+        <IonButton onClick={login}>Login</IonButton>
+        <p>
+          Don't have an Account <Link to="/register">Register</Link>
+        </p>
       </IonContent>
     </IonPage>
   );

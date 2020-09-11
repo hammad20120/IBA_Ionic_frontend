@@ -59,7 +59,6 @@ const Page: React.FC = () => {
             <SearchLocation />
             <CrisisDropdown />
             <Slider />
-     
           </IonCardContent>
         </IonCard>
 
