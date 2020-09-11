@@ -32,7 +32,11 @@ ion-toolbar {
 
 .third-card {
   height: 50vh;
-
   background: white;
   border-radius: 10px;
+}
+
+.leaflet-container {
+  height: 600px;
+  width: 100%;
 }
