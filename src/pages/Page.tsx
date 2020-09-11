@@ -13,6 +13,9 @@ import {
   IonRow,
   IonGrid,
   IonCol,
+  IonLabel,
+  IonIcon,
+  IonItem,
 } from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
@@ -24,6 +27,9 @@ import Search from "../components/Search";
 import SearchLocation from "../components/SearchLocation";
 import Slider from "../components/Slider";
 import CrisisDropdown from "../components/CrisisDropdown";
+import { logOut } from "ionicons/icons";
+import { signout } from "../firebaseConfig/firebaseConfig";
+import firebase from "firebase";
 
 import L from "leaflet";
 
@@ -49,6 +55,8 @@ const Page: React.FC = () => {
     setTimeout(() => setRenderMap(true), 1000);
   }, []);
 
+  const user = firebase.auth().currentUser;
+
   return (
     <IonPage>
       <IonHeader>
@@ -57,7 +65,17 @@ const Page: React.FC = () => {
             <IonMenuButton />
           </IonButtons>
           <IonTitle slot="start">{name}</IonTitle>
-          <Search />
+          {user !== null ? (
+            <IonIcon
+              icon={logOut}
+              style={{ fontSize: "140%" }}
+              onClick={signout}
+              slot="end"
+            />
+          ) : ""}
+          <IonLabel slot="end" style={{ fontSize: "120%" }} className="ion-padding">
+            {user != null ? user.displayName : ""}
+          </IonLabel>
         </IonToolbar>
       </IonHeader>
 

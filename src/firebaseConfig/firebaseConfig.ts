@@ -12,13 +12,16 @@ var firebaseConfig = {
   measurementId: "G-E0QEH7L5MK",
 };
 
+
 firebase.initializeApp(firebaseConfig);
 
 export async function loginUser(email: string, password: string) {
   try {
     const res = await firebase
       .auth()
-      .signInWithEmailAndPassword(email, password);
+      .signInWithEmailAndPassword(email, password).then(() =>{
+        window.location.assign('/');
+      })
 
     console.log(res);
     return true;
@@ -28,11 +31,19 @@ export async function loginUser(email: string, password: string) {
   }
 }
 
-export async function registerUser(email: string, password: string) {
+export async function registerUser(displayName: string, email: string, password: string) {
   try {
     const res = await firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password);
+      .createUserWithEmailAndPassword(email, password)
+			.then(() => {
+				const user = firebase.auth().currentUser;
+				if (user) {
+					user.updateProfile({
+						displayName: displayName,
+					});
+				}
+			});
 
     console.log(res);
     return true;
@@ -40,4 +51,22 @@ export async function registerUser(email: string, password: string) {
     toast(error.message, 4000);
     return false;
   }
+}
+
+export function signout(){
+  firebase.auth().signOut().then(() =>{
+    window.location.assign('/login');
+  })
+}
+
+export function check(){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user){
+    console.log("logged in")
+    console.log(user.displayName)
+  }
+  else{
+    console.log("logged out")
+  }
+  })
 }

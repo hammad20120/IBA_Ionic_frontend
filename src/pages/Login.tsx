@@ -10,13 +10,15 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { loginUser } from "../firebaseConfig/firebaseConfig";
+import { check, loginUser } from "../firebaseConfig/firebaseConfig";
 import { toast } from "../firebaseConfig/toast";
 
 const Login: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  check();
 
   async function login() {
     setBusy(true);
@@ -25,6 +27,7 @@ const Login: React.FC = () => {
       toast("Logged in Successfully");
     }
     setBusy(false);
+    
   }
   return (
     <IonPage>
