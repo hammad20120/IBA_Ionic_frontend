@@ -1,40 +1,42 @@
-.bg-class{
-    --background: linear-gradient( to left, rgba(25, 223, 225, 1) 0%, rgba(25, 223, 225, 1) 30%, rgba(86, 119, 135, 1) 80%, rgba(86, 119, 135, 1) 100% );
-  }
+.bg-class {
+  --background: linear-gradient(
+    to left,
+    rgba(25, 223, 225, 1) 0%,
+    rgba(25, 223, 225, 1) 30%,
+    rgba(86, 119, 135, 1) 80%,
+    rgba(86, 119, 135, 1) 100%
+  );
+}
 
- .bg{
-     --background:#f2edf3;
- } 
+.bg {
+  --background: #f2edf3;
+}
 
- ion-toolbar{
-    --min-height:77px!important;
-    --ion-text-color: white;
-  }
+ion-toolbar {
+  --min-height: 77px !important;
+  --ion-text-color: white;
+}
 
-  ion-card{
-    height: 100%;
-    background: white;
-    margin: 35px;
-    border-radius: 10px;
-  }
+/* ion-card {
+  height: 100%;
+  background: white;
+  margin: 35px;
+  border-radius: 10px;
+} */
 
-  .second-card{
-    height: 60%;
-    width: 45%;
-    background: white;
-    border-radius: 10px;
-  }
+.second-card {
+  height: 50vh;
+  background: white;
+  border-radius: 10px;
+}
 
-  .third-card{
-    height: 60%;
-    width: 45%;
-    background: white;
-    border-radius: 10px;
-    margin-top: 0px;
-  }
+.third-card {
+  height: 50vh;
+  background: white;
+  border-radius: 10px;
+}
 
-  
-
-  
-
-
+.leaflet-container {
+  height: 600px;
+  width: 100%;
+}

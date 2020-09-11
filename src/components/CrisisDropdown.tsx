@@ -10,10 +10,7 @@ const CrisisDropdown: React.FC = () => {
   };
 
   return (
-    <div
-      style={{ color: "black", width: "40%", marginTop: "10px" }}
-      className="ion-padding"
-    >
+    <div style={{ color: "black", marginTop: "10px" }} className="ion-padding">
       <IonItem lines="none">
         <IonLabel style={{ fontSize: "120%" }}>Select Crisis Type</IonLabel>
         <IonSelect
