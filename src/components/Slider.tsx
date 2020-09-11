@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  IonItem,
-  IonRange,
-  IonLabel,
-} from "@ionic/react";
+import { IonItem, IonRange, IonLabel } from "@ionic/react";
 import "./Slider.css";
 
 export const Slider: React.FC = () => {
@@ -24,12 +20,9 @@ export const Slider: React.FC = () => {
     }
   };
   return (
-    <div
-      style={{ color: "black", width: "40%" , marginTop: "10px"}}
-      className="ion-padding"
-    >
+    <div style={{ color: "black", marginTop: "10px" }} className="ion-padding">
       <IonItem lines="none">
-      <IonLabel style={{ fontSize: "120%"}}>Crisis Severity</IonLabel>
+        <IonLabel style={{ fontSize: "120%" }}>Crisis Severity</IonLabel>
       </IonItem>
       <IonItem lines="none">
         <IonRange
@@ -42,7 +35,7 @@ export const Slider: React.FC = () => {
         />
       </IonItem>
       <IonItem lines="none">
-        <IonLabel style={{ fontSize: "110%"}}>
+        <IonLabel style={{ fontSize: "110%" }}>
           Severity:
           {value < 25
             ? " Low"
