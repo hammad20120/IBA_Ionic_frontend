@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IonItem, IonLabel, IonSelect, IonSelectOption } from "@ionic/react";
-import "./CrisisDropDown.css";
+import "../CSS/CrisisDropDown.css";
 
 const CrisisDropdown: React.FC = () => {
   const [crisis, setCrisis] = useState<string>();

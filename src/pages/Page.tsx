@@ -16,7 +16,7 @@ import {
 } from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import "./Page.css";
+import "../CSS/Page.css";
 import ResourcesDashboard from "../components/ResourcesDashboard";
 import Alerts from "../components/Alerts";
 // import Map from "../components/Map";

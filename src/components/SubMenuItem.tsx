@@ -1,7 +1,7 @@
 import React from "react";
 import { IonItem, IonIcon, IonLabel, IonMenuToggle } from "@ionic/react";
 import { useLocation } from "react-router";
-import "./SubMenuItem.css";
+import "../CSS/SubMenuItem.css";
 
 interface AppPage {
   url: string;

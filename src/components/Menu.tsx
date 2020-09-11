@@ -15,7 +15,7 @@ import {
   carOutline,
   carSharp,
 } from "ionicons/icons";
-import "./Menu.css";
+import "../CSS/Menu.css";
 import MenuItem from "./MenuItem";
 import SubMenuItem from "./SubMenuItem";
 

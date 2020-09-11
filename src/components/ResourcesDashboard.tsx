@@ -10,7 +10,7 @@ import {
   IonCol
 } from "@ionic/react";
 import { fastFood, medkit, car, man, bonfire, star } from "ionicons/icons";
-import "./Resources.css";
+import "../CSS/Resources.css";
 
 interface selectedArray {
   ambulance: boolean;

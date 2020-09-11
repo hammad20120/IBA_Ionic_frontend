@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IonItem, IonRange, IonLabel } from "@ionic/react";
-import "./Slider.css";
+import "../CSS/Slider.css";
 
 export const Slider: React.FC = () => {
   const [value, setValue] = useState(0);
