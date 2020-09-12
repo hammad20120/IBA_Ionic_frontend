@@ -1,6 +1,5 @@
 import {
   IonContent,
-  IonCard,
   IonHeader,
   IonPage,
   IonTitle,
@@ -8,16 +7,11 @@ import {
   IonInput,
   IonButton,
   IonLoading,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonItem,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { check, loginUser } from "../firebaseConfig/firebaseConfig";
 import { toast } from "../firebaseConfig/toast";
-import "../CSS/LoginRegister.css";
 
 const Login: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
@@ -33,60 +27,31 @@ const Login: React.FC = () => {
       toast("Logged in Successfully");
     }
     setBusy(false);
+    
   }
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar color="primary">
+          <IonTitle>Login</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonLoading message="Please Wait.." duration={0} isOpen={busy} />
-      <IonContent class="bg-color" className="ion-padding">
-        <IonGrid class="grids" className="ion-padding">
-          <IonRow class="rows" className="ion-justify-content-center">
-            <IonCol
-              class="cols"
-              className="ion-align-self-center"
-              size-md="6"
-              size-lg="5"
-              size-xs="12"
-            >
-              <div className="ion-text-center">
-                <h4 className="ion-padding" style={{ fontSize: "150%" }}>Login Form</h4>
-              </div>
-              <div className="ion-padding">
-                <IonItem lines="none">
-                  <IonInput
-                    type="email"
-                    placeholder="Email"
-                    onIonChange={(e: any) => setEmail(e.target.value)}
-                  />
-                </IonItem>
-
-                <IonItem lines="none" >
-                  <IonInput
-                    type="password"
-                    placeholder="Passowrd"
-                    onIonChange={(e: any) => setPassword(e.target.value)}
-                  />
-                </IonItem>
-              </div>
-
-              <div className="ion-padding">
-                <IonButton
-                  className="buttons"
-                  onClick={login}
-                  size="default"
-                  expand="block"
-                >
-                  Login
-                </IonButton>
-              </div>
-
-              <div className="ion-padding">
-                <p style={{textAlign: "center"}}>
-                  Don't have an Account? <Link to="/register" style={{textDecoration: "none"}}>Register</Link>
-                </p>
-              </div>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+      <IonContent className="ion-padding">
+        <IonInput
+          type="email"
+          placeholder="Email"
+          onIonChange={(e: any) => setEmail(e.target.value)}
+        />
+        <IonInput
+          type="password"
+          placeholder="Passowrd"
+          onIonChange={(e: any) => setPassword(e.target.value)}
+        />
+        <IonButton onClick={login}>Login</IonButton>
+        <p>
+          Don't have an Account <Link to="/register">Register</Link>
+        </p>
       </IonContent>
     </IonPage>
   );

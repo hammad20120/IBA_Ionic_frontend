@@ -7,16 +7,11 @@ import {
   IonInput,
   IonButton,
   IonLoading,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonItem,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "../firebaseConfig/toast";
 import { check, registerUser } from "../firebaseConfig/firebaseConfig";
-import "../CSS/LoginRegister.css";
 
 const Register: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
@@ -44,75 +39,36 @@ const Register: React.FC = () => {
   }
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar color="primary">
+          <IonTitle>Sign Up</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonLoading message="Please Wait.." duration={0} isOpen={busy} />
-      <IonContent class="bg-color" className="ion-padding">
-        <IonGrid class="grids" className="ion-padding">
-          <IonRow class="rows" className="ion-justify-content-center">
-            <IonCol
-              class="cols"
-              className="ion-align-self-center"
-              size-md="6"
-              size-lg="5"
-              size-xs="12"
-            >
-              <div className="ion-text-center">
-                <h4 className="ion-padding" style={{ fontSize: "150%" }}>
-                  Sign Up
-                </h4>
-              </div>
-              <div className="ion-padding">
-                <IonItem lines="none">
-                <IonInput
-                  placeholder="User Name"
-                  onIonChange={(e: any) => setUsername(e.target.value)}
-                />
-                </IonItem>
-                <IonItem lines="none">
-                  <IonInput
-                    type="email"
-                    placeholder="Email"
-                    onIonChange={(e: any) => setEmail(e.target.value)}
-                  />
-                </IonItem>
-
-                <IonItem lines="none">
-                  <IonInput
-                    type="password"
-                    placeholder="Passowrd"
-                    onIonChange={(e: any) => setPassword(e.target.value)}
-                  />
-                </IonItem>
-                <IonItem lines="none">
-                <IonInput
-                  type="password"
-                  placeholder="Confirm Passowrd"
-                  onIonChange={(e: any) => setCpassword(e.target.value)}
-                />
-                </IonItem>
-              </div>
-
-              <div className="ion-padding">
-                <IonButton
-                  className="buttons"
-                  onClick={register}
-                  size="default"
-                  expand="block"
-                >
-                  Sign Up
-                </IonButton>
-              </div>
-
-              <div className="ion-padding">
-                <p style={{ textAlign: "center" }}>
-                  Already have an Account? 
-                  <Link to="/login" style={{ textDecoration: "none" }}>
-                    Login
-                  </Link>
-                </p>
-              </div>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+      <IonContent className="ion-padding">
+      <IonInput
+          placeholder="User Name"
+          onIonChange={(e: any) => setUsername(e.target.value)}
+        />
+        <IonInput
+          type="email"
+          placeholder="Email"
+          onIonChange={(e: any) => setEmail(e.target.value)}
+        />
+        <IonInput
+          type="password"
+          placeholder="Passowrd"
+          onIonChange={(e: any) => setPassword(e.target.value)}
+        />
+        <IonInput
+          type="password"
+          placeholder="Confirm Passowrd"
+          onIonChange={(e: any) => setCpassword(e.target.value)}
+        />
+        <IonButton onClick={register}>Sign Up</IonButton>
+        <p>
+          Already have an Account <Link to="/login">Login</Link>{" "}
+        </p>
       </IonContent>
     </IonPage>
   );
