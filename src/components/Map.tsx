@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { createRef, useState } from "react";
 import L, { LeafletMouseEvent } from "leaflet";
 
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import {
+  Map,
+  TileLayer,
+  Marker,
+  Circle,
+  Popup,
+  CircleMarker,
+} from "react-leaflet";
 
 const MapLeaflet: React.FC<{
   Position: any;
   setPosition: (p: { lat: number; lng: number }) => void;
 }> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+  const [ZoomState, setZoomState] = useState(15);
+
+  const mapRef = createRef<Map>();
+
+  const handleZoom = () => {
+    const map = mapRef.current;
+    const zoom = map?.leafletElement.getZoom();
+    zoom && setZoomState(zoom);
+  };
 
   const myIcon = new L.Icon({
     iconUrl:
@@ -18,12 +35,12 @@ const MapLeaflet: React.FC<{
 
   return (
     <Map
+      ref={mapRef}
+      onzoomend={handleZoom}
       className="map"
-      center={{ lat: 24.8607, lng: 67.0011 }}
-      minZoom={10}
-      maxZoom={18}
-      zoom={15}
-      onClick={(e: LeafletMouseEvent) =>
+      center={props.Position}
+      zoom={ZoomState}
+      onclick={(e: LeafletMouseEvent) =>
         props.setPosition({ lat: e.latlng.lat, lng: e.latlng.lng })
       }
     >
@@ -31,9 +48,9 @@ const MapLeaflet: React.FC<{
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={props.Position} icon={myIcon}>
-        <Popup>Son Konum</Popup>
-      </Marker>
+      <Circle center={props.Position} fillColor="blue" radius={300} />
+
+      <Marker icon={myIcon} position={props.Position} />
     </Map>
   );
 };
