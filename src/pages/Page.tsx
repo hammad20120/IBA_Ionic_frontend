@@ -91,7 +91,10 @@ const Page: React.FC = () => {
                   <IonCardContent>
                     <IonRow>
                       <IonCol size="12" size-sm="5">
-                        <SearchLocation setPosition={setPosition} />
+                        <SearchLocation
+                          setPosition={setPosition}
+                          Position={Position}
+                        />
 
                         <CrisisDropdown />
 

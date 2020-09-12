@@ -1,15 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { IonItem, IonList, IonSearchbar } from "@ionic/react";
 import { Autocomplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
 
 const SearchLocation: React.FC<{
+  Position: any;
   setPosition: (p: { lat: number; lng: number }) => void;
 }> = (props) => {
   const [searchText, setSearchText] = useState("");
   const [LocationList, setLocationList] = useState<any[]>([]);
   const [FetchDelay, setFetchDelay] = useState(0);
   const [TimeDelay, setTimeDelay] = useState(0);
+
+  useEffect(() => {
+    fetch(
+      `https://us1.locationiq.com/v1/reverse.php?key=6290f94039d875&lat=${props.Position.lat}&lon=${props.Position.lng}&format=json`
+    )
+      .then((res) => res.json())
+      .then((res) => setSearchText(res.display_name));
+  }, [props.Position]);
 
   useEffect(() => {
     if (TimeDelay !== 0) {
@@ -28,6 +37,11 @@ const SearchLocation: React.FC<{
   }, [FetchDelay]);
 
   const updateList = () => {
+    console.log(searchText);
+
+    // if (!searchText) {
+    //   return;
+    // }
     console.log("call");
 
     fetch(
@@ -35,6 +49,7 @@ const SearchLocation: React.FC<{
     )
       .then((res) => res.json())
       .then((res) => res[0] && setLocationList(res));
+
     setFetchDelay(1000);
   };
 

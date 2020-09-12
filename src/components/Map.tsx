@@ -19,8 +19,10 @@ const MapLeaflet: React.FC<{
   return (
     <Map
       className="map"
-      center={props.Position}
-      zoom={12}
+      center={{ lat: 24.8607, lng: 67.0011 }}
+      minZoom={10}
+      maxZoom={18}
+      zoom={15}
       onClick={(e: LeafletMouseEvent) =>
         props.setPosition({ lat: e.latlng.lat, lng: e.latlng.lng })
       }
