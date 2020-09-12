@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { IonSearchbar } from "@ionic/react";
+import React, { useEffect, useState } from "react";
+import { IonItem, IonList, IonSearchbar } from "@ionic/react";
 
 const Search: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
+
   return (
     <div className="ion-padding">
       <IonSearchbar
