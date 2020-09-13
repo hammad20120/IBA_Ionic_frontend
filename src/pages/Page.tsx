@@ -33,10 +33,6 @@ const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
 
   const [RenderMap, setRenderMap] = useState<boolean>(false);
-  const [Position, setPosition] = useState<{ lat: number; lng: number }>({
-    lat: 24.9462569,
-    lng: 67.0203426,
-  });
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
@@ -91,10 +87,7 @@ const Page: React.FC = () => {
                   <IonCardContent>
                     <IonRow>
                       <IonCol size="12" size-sm="5">
-                        <SearchLocation
-                          setPosition={setPosition}
-                          Position={Position}
-                        />
+                        <SearchLocation />
 
                         <CrisisDropdown />
 
@@ -102,12 +95,7 @@ const Page: React.FC = () => {
                       </IonCol>
 
                       <IonCol size="12" size-sm="7">
-                        {RenderMap && (
-                          <MapLeaflet
-                            Position={Position}
-                            setPosition={setPosition}
-                          />
-                        )}
+                        {RenderMap && <MapLeaflet />}
                       </IonCol>
                     </IonRow>
                   </IonCardContent>

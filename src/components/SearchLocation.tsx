@@ -3,22 +3,35 @@ import React, { useEffect, useState } from "react";
 import { Autocomplete } from "@material-ui/lab";
 import { TextField } from "@material-ui/core";
 
-const SearchLocation: React.FC<{
-  Position: any;
-  setPosition: (p: { lat: number; lng: number }) => void;
-}> = (props) => {
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+import { updatePosition } from "../actions/positionAction";
+import { PositionState } from "../reducers/PositionReducer";
+
+const SearchLocation: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [LocationList, setLocationList] = useState<any[]>([]);
   const [FetchDelay, setFetchDelay] = useState(0);
   const [TimeDelay, setTimeDelay] = useState(0);
 
+  const Position = useSelector<RootState, PositionState>(
+    (state) => state.position
+  );
+  const dispatch = useDispatch();
+
+  /* Update Search Location Text Field When Position Change */
+
   useEffect(() => {
-    fetch(
-      `https://us1.locationiq.com/v1/reverse.php?key=6290f94039d875&lat=${props.Position.lat}&lon=${props.Position.lng}&format=json`
-    )
-      .then((res) => res.json())
-      .then((res) => setSearchText(res.display_name));
-  }, [props.Position]);
+    console.log("CHECK");
+    Position &&
+      fetch(
+        `https://us1.locationiq.com/v1/reverse.php?key=6290f94039d875&lat=${Position.lat}&lon=${Position.lng}&format=json`
+      )
+        .then((res) => res.json())
+        .then((res) => setSearchText(res.display_name));
+  }, [Position]);
+
+  /* Control API Calls */
 
   useEffect(() => {
     if (TimeDelay !== 0) {
@@ -36,12 +49,11 @@ const SearchLocation: React.FC<{
     }
   }, [FetchDelay]);
 
+  /* Fetch Location Suggestions from API */
+
   const updateList = () => {
     console.log(searchText);
 
-    // if (!searchText) {
-    //   return;
-    // }
     console.log("call");
 
     fetch(
@@ -54,22 +66,13 @@ const SearchLocation: React.FC<{
   };
 
   const handleSearchChange = (e: any, values: any) => {
-    // console.log(values);
-
     setSearchText(values);
   };
 
   const getCordinates = (e: any, values: any) => {
-    // console.log(values);
     const locObject = LocationList.find((loc) => values === loc.display_name);
-    props.setPosition({
-      lat: locObject.lat,
-      lng: locObject.lon,
-    });
-    // console.log({
-    //   lat: locObject.lat,
-    //   lng: locObject.lng,
-    // });
+
+    dispatch(updatePosition({ lat: locObject.lat, lng: locObject.lon }));
   };
 
   return (
