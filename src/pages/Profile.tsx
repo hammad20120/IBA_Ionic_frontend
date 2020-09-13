@@ -22,9 +22,9 @@ import firebase from "firebase";
 
 const Profile: React.FC = () => {
   const user = firebase.auth().currentUser;
-  var email = user != null ? user.email : "";
+  var email = user?.email;
   var uid = user != null ? user.uid : "";
-  var username = user != null ? user.displayName : "";
+  var username = user?.displayName;
   var today = new Date();
   var Created_At =
     today.getFullYear() +
@@ -83,6 +83,7 @@ const Profile: React.FC = () => {
                   <IonInput
                     type="number"
                     onIonChange={(e: any) => setContact(e.target.value)}
+                    required
                   />
                 </IonItem>
               </div>
@@ -92,6 +93,7 @@ const Profile: React.FC = () => {
                   <IonInput
                     type="number"
                     onIonChange={(e: any) => setCnic(e.target.value)}
+                    required
                   />
                 </IonItem>
               </div>
@@ -101,6 +103,7 @@ const Profile: React.FC = () => {
                   <IonInput
                     type="text"
                     onIonChange={(e: any) => setAddress(e.target.value)}
+                    required
                   />
                 </IonItem>
               </div>
@@ -110,6 +113,7 @@ const Profile: React.FC = () => {
                   <IonInput
                     type="text"
                     onIonChange={(e: any) => setCity(e.target.value)}
+                    required
                   />
                 </IonItem>
               </div>

@@ -12,6 +12,7 @@ import {
   IonRow,
   IonCol,
   IonItem,
+  IonLabel
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -57,18 +58,20 @@ const Login: React.FC = () => {
               </div>
               <div className="ion-padding">
                 <IonItem lines="none">
+                  <IonLabel position="floating">Email</IonLabel>
                   <IonInput
                     type="email"
-                    placeholder="Email"
                     onIonChange={(e: any) => setEmail(e.target.value)}
+                    required
                   />
                 </IonItem>
 
                 <IonItem lines="none" >
+                <IonLabel position="floating">Password</IonLabel>
                   <IonInput
                     type="password"
-                    placeholder="Passowrd"
                     onIonChange={(e: any) => setPassword(e.target.value)}
+                    required
                   />
                 </IonItem>
               </div>

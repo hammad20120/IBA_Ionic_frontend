@@ -25,9 +25,9 @@ import SearchLocation from "../components/SearchLocation";
 import Slider from "../components/Slider";
 import CrisisDropdown from "../components/CrisisDropdown";
 import MapLeaflet from "../components/Map";
-import { logOut } from "ionicons/icons";
-import { signout } from "../firebaseConfig/firebaseConfig";
+
 import firebase from "firebase";
+import SignoutPopover from "../components/SignoutPopover";
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -43,6 +43,7 @@ const Page: React.FC = () => {
   }, []);
 
   const user = firebase.auth().currentUser;
+ 
 
   return (
     <IonPage>
@@ -53,12 +54,7 @@ const Page: React.FC = () => {
           </IonButtons>
           <IonTitle slot="start">{name}</IonTitle>
           {user !== null ? (
-            <IonIcon
-              icon={logOut}
-              style={{ fontSize: "140%" }}
-              onClick={signout}
-              slot="end"
-            />
+            <SignoutPopover />
           ) : (
             ""
           )}
@@ -67,7 +63,7 @@ const Page: React.FC = () => {
             style={{ fontSize: "120%" }}
             className="ion-padding"
           >
-            {user != null ? user.displayName : ""}
+            {user != null ? user.displayName?.split(' ')[0] : ""}
           </IonLabel>
         </IonToolbar>
       </IonHeader>
