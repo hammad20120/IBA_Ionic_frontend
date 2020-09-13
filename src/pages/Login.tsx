@@ -32,6 +32,11 @@ const Login: React.FC = () => {
     if (res) {
       toast("Logged in Successfully");
     }
+
+    setTimeout(function () {
+      window.location.assign("/");
+    }, 2000);
+
     setBusy(false);
   }
   return (

@@ -40,6 +40,14 @@ const Register: React.FC = () => {
     } else {
       toast("Password does not match");
     }
+
+    
+      setTimeout(function () {
+        window.location.assign("/profile");
+      }, 2000);
+
+    
+    
     setBusy(false);
   }
   return (

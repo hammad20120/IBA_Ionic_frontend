@@ -130,6 +130,12 @@ const Page: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        <IonButton
+          style={{ float: "right", marginRight: "25px", marginBottom: "35px" }}
+          color="themecolor"
+        >
+          Create
+        </IonButton>
 
         <IonButton
           style={{ float: "right", marginRight: "37px", marginBottom: "35px" }}
@@ -137,12 +143,7 @@ const Page: React.FC = () => {
         >
           Clear
         </IonButton>
-        <IonButton
-          style={{ float: "right", marginRight: "25px", marginBottom: "35px" }}
-          color="themecolor"
-        >
-          Create
-        </IonButton>
+     
       </IonContent>
     </IonPage>
   );
