@@ -34,12 +34,22 @@ const Page: React.FC = () => {
 
   const [RenderMap, setRenderMap] = useState<boolean>(false);
 
+  const [Crisis, setCrisis] = useState({
+    location: "",
+    type: "",
+    lat: 0,
+    lng: 0,
+    severity: "",
+    createdBy: "",
+  });
+
+  const onCrisisCreate = () => {};
+
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
   }, []);
 
   const user = firebase.auth().currentUser;
- 
 
   return (
     <IonPage>
@@ -49,17 +59,13 @@ const Page: React.FC = () => {
             <IonMenuButton />
           </IonButtons>
           <IonTitle slot="start">{name}</IonTitle>
-          {user !== null ? (
-            <SignoutPopover />
-          ) : (
-            ""
-          )}
+          {user && <SignoutPopover />}
           <IonLabel
             slot="end"
             style={{ fontSize: "120%" }}
             className="ion-padding"
           >
-            {user != null ? user.displayName?.split(' ')[0] : ""}
+            {user != null ? user.displayName?.split(" ")[0] : ""}
           </IonLabel>
         </IonToolbar>
       </IonHeader>
@@ -127,7 +133,6 @@ const Page: React.FC = () => {
         >
           Clear
         </IonButton>
-     
       </IonContent>
     </IonPage>
   );

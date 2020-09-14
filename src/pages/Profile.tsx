@@ -1,12 +1,8 @@
 import {
   IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
   IonInput,
   IonButton,
-  IonLoading,
   IonGrid,
   IonRow,
   IonCol,
@@ -14,9 +10,9 @@ import {
   IonLabel,
 } from "@ionic/react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+
 import { toast } from "../firebaseConfig/toast";
-import { check, registerUser } from "../firebaseConfig/firebaseConfig";
+
 import "../CSS/LoginRegister.css";
 import firebase from "firebase";
 
@@ -81,7 +77,7 @@ const Profile: React.FC = () => {
                 <IonItem lines="none">
                   <IonLabel position="floating"> Contact Number </IonLabel>
                   <IonInput
-                    type="number"
+                    type="tel"
                     onIonChange={(e: any) => setContact(e.target.value)}
                     required
                   />

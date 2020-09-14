@@ -5,8 +5,8 @@ import { TextField } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { updatePosition } from "../actions/positionAction";
-import { PositionState } from "../reducers/PositionReducer";
+import { updatePosition, updateLocationName } from "../actions/crisisAction";
+import { CrisisState } from "../reducers/CrisisReducer";
 
 const SearchLocation: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -14,22 +14,20 @@ const SearchLocation: React.FC = () => {
   const [FetchDelay, setFetchDelay] = useState(0);
   const [TimeDelay, setTimeDelay] = useState(0);
 
-  const Position = useSelector<RootState, PositionState>(
-    (state) => state.position
-  );
+  const Crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
   const dispatch = useDispatch();
 
   /* Update Search Location Text Field When Position Change */
 
   useEffect(() => {
     console.log("CHECK");
-    Position &&
+    Crisis.lat &&
       fetch(
-        `https://us1.locationiq.com/v1/reverse.php?key=6290f94039d875&lat=${Position.lat}&lon=${Position.lng}&format=json`
+        `https://us1.locationiq.com/v1/reverse.php?key=6290f94039d875&lat=${Crisis.lat}&lon=${Crisis.lng}&format=json`
       )
         .then((res) => res.json())
         .then((res) => setSearchText(res.display_name));
-  }, [Position]);
+  }, [Crisis.lat]);
 
   /* Control API Calls */
 
@@ -67,12 +65,15 @@ const SearchLocation: React.FC = () => {
 
   const handleSearchChange = (e: any, values: any) => {
     setSearchText(values);
+    dispatch(updateLocationName({ ...Crisis, location: searchText }));
   };
 
   const getCordinates = (e: any, values: any) => {
     const locObject = LocationList.find((loc) => values === loc.display_name);
 
-    dispatch(updatePosition({ lat: locObject.lat, lng: locObject.lon }));
+    dispatch(
+      updatePosition({ ...Crisis, lat: locObject.lat, lng: locObject.lon })
+    );
   };
 
   return (

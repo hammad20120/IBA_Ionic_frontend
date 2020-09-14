@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { positionReducer } from "./PositionReducer";
+import { crisisReducer } from "./CrisisReducer";
 
 export const rootReducer = combineReducers({
-  position: positionReducer,
+  crisis: crisisReducer,
 });

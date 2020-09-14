@@ -14,6 +14,8 @@ import {
   checkmarkDoneSharp,
   carOutline,
   carSharp,
+  alertCircleOutline,
+  alertCircleSharp,
 } from "ionicons/icons";
 import "../CSS/Menu.css";
 import MenuItem from "./MenuItem";
@@ -69,6 +71,14 @@ const appPages: AppPage[] = [
         mdIcon: checkmarkDoneSharp,
       },
     ],
+  },
+  {
+    title: "Crisis",
+    url: "/page/Crisis",
+    iosIcon: alertCircleOutline,
+    mdIcon: alertCircleSharp,
+    type: "link",
+    subPages: [],
   },
 ];
 

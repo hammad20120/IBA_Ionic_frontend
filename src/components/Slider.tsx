@@ -1,22 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IonItem, IonRange, IonLabel } from "@ionic/react";
 import "../CSS/Slider.css";
+import { useDispatch, useSelector } from "react-redux";
+import { CrisisState } from "../reducers/CrisisReducer";
+import { RootState } from "../store";
+import { updateSeverity } from "../actions/crisisAction";
 
 export const Slider: React.FC = () => {
-  const [value, setValue] = useState(0);
+  const [RangeValue, setRangeValue] = useState(0);
   const [RangeColor, setRangeColor] = useState<string>("yellow");
+  const [Severity, setSeverity] = useState<string>("Low");
+
+  const Crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(updateSeverity({ ...Crisis, severity: Severity }));
+  }, [Severity]);
+
   const onRangeChangeHandler = (e: any) => {
-    setValue(e.detail.value as number);
+    setRangeValue(e.detail.value as number);
     const sliderVal: number = e.detail.value as number;
 
     if (sliderVal < 25) {
       setRangeColor("yellow");
+      setSeverity("Low");
     } else if (sliderVal < 50) {
       setRangeColor("orange");
+      setSeverity("Medium");
     } else if (sliderVal < 75) {
       setRangeColor("vividorange");
+      setSeverity("High");
     } else {
       setRangeColor("danger");
+      setSeverity("Extreme");
     }
   };
   return (
@@ -27,7 +44,7 @@ export const Slider: React.FC = () => {
       <IonItem lines="none">
         <IonRange
           max={75}
-          value={value}
+          value={RangeValue}
           step={25}
           onIonChange={onRangeChangeHandler}
           color={RangeColor}
@@ -37,13 +54,7 @@ export const Slider: React.FC = () => {
       <IonItem lines="none">
         <IonLabel style={{ fontSize: "110%" }}>
           Severity:
-          {value < 25
-            ? " Low"
-            : value >= 25 && value < 50
-            ? " Medium"
-            : value >= 50 && value < 75
-            ? " High"
-            : " Extreme"}
+          {` ${Severity}`}
         </IonLabel>
       </IonItem>
     </div>

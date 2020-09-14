@@ -4,16 +4,15 @@ import L, { LeafletMouseEvent } from "leaflet";
 import { Map, TileLayer, Marker, Circle } from "react-leaflet";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { PositionState } from "../reducers/PositionReducer";
+import { CrisisState } from "../reducers/CrisisReducer";
+import { updatePosition } from "../actions/crisisAction";
 
 const MapLeaflet: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   const [ZoomState, setZoomState] = useState(15);
 
-  const Position = useSelector<RootState, PositionState>(
-    (state) => state.position
-  );
+  const Crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
   const dispatch = useDispatch();
 
   const mapRef = createRef<Map>();
@@ -36,22 +35,21 @@ const MapLeaflet: React.FC = () => {
       ref={mapRef}
       onzoomend={handleZoom}
       className="map"
-      center={Position}
+      center={{ lat: Crisis.lat, lng: Crisis.lng }}
       zoom={ZoomState}
       onclick={(e: LeafletMouseEvent) =>
-        dispatch({
-          type: "UPDATE_POSITION",
-          payload: { lat: e.latlng.lat, lng: e.latlng.lng },
-        })
+        dispatch(
+          updatePosition({ ...Crisis, lat: e.latlng.lat, lng: e.latlng.lng })
+        )
       }
     >
       <TileLayer
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Circle center={Position} fillColor="blue" radius={300} />
+      <Circle center={Crisis} fillColor="blue" radius={300} />
 
-      <Marker icon={myIcon} position={Position} />
+      <Marker icon={myIcon} position={Crisis} />
     </Map>
   );
 };
