@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
-import {IonHeader } from "@ionic/react";
+import { IonContent, IonHeader, IonPage } from "@ionic/react";
 import Header from "../components/Header";
 
 const CrisisList: React.FC = () => {
@@ -20,21 +20,31 @@ const CrisisList: React.FC = () => {
   }, []);
 
   return (
-
-    <div>
+    <IonPage>
       <IonHeader>
-      <Header />
-    </IonHeader>
-      
-          {Object.keys(crisisObjects).map((key) => (
-            <tr key={key}>
-              <td>{crisisObjects[key].createdBy}</td>
-              <td>{crisisObjects[key].type}</td>
-              <td>{crisisObjects[key].severity}</td>
+        <Header />
+      </IonHeader>
+      <IonContent class="bg">
+        <table>
+          <thead>
+            <tr>
+              <td>a</td>
+              <td>b</td>
+              <td>x</td>
             </tr>
-          ))}
-        
-    </div>
+          </thead>
+          <tbody>
+            {Object.keys(crisisObjects).map((key) => (
+              <tr key={key}>
+                <td>{crisisObjects[key].createdBy}</td>
+                <td>{crisisObjects[key].type}</td>
+                <td>{crisisObjects[key].severity}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </IonContent>
+    </IonPage>
   );
 };
 
