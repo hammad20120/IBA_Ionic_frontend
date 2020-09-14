@@ -74,7 +74,7 @@ const appPages: AppPage[] = [
   },
   {
     title: "Crisis",
-    url: "/page/Crisis",
+    url: "/crisislist",
     iosIcon: alertCircleOutline,
     mdIcon: alertCircleSharp,
     type: "link",

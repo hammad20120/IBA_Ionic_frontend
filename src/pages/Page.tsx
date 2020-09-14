@@ -22,53 +22,48 @@ import "../CSS/Page.css";
 import ResourcesDashboard from "../components/ResourcesDashboard";
 import Alerts from "../components/Alerts";
 import SearchLocation from "../components/SearchLocation";
+import Header from "../components/Header";
 import Slider from "../components/Slider";
 import CrisisDropdown from "../components/CrisisDropdown";
 import MapLeaflet from "../components/Map";
 
 import firebase from "firebase";
-import SignoutPopover from "../components/SignoutPopover";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import { CrisisState } from "../reducers/CrisisReducer";
+
 
 const Page: React.FC = () => {
-  const { name } = useParams<{ name: string }>();
+  
 
   const [RenderMap, setRenderMap] = useState<boolean>(false);
+  const Crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
+  const user = firebase.auth().currentUser;
 
-  const [Crisis, setCrisis] = useState({
-    location: "",
-    type: "",
-    lat: 0,
-    lng: 0,
-    severity: "",
-    createdBy: "",
-  });
+  const onCrisisCreate = () => {
+    var user_id =  user?.uid;
+    var createdBy = user?.displayName;
+    var today = new Date();
+    var created_At = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() +
+    " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-  const onCrisisCreate = () => {};
+   firebase.database().ref("crisis").push({...Crisis, user_id, createdBy, created_At });
+
+  };
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
   }, []);
 
-  const user = firebase.auth().currentUser;
+
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar class="bg-class">
-          <IonButtons slot="start">
-            <IonMenuButton />
-          </IonButtons>
-          <IonTitle slot="start">{name}</IonTitle>
-          {user && <SignoutPopover />}
-          <IonLabel
-            slot="end"
-            style={{ fontSize: "120%" }}
-            className="ion-padding"
-          >
-            {user != null ? user.displayName?.split(" ")[0] : ""}
-          </IonLabel>
-        </IonToolbar>
-      </IonHeader>
+    
+    <IonHeader>
+      <Header />
+    </IonHeader>
 
       <IonContent class="bg">
         <IonGrid>
@@ -123,6 +118,7 @@ const Page: React.FC = () => {
         <IonButton
           style={{ float: "right", marginRight: "25px", marginBottom: "35px" }}
           color="themecolor"
+          onClick={onCrisisCreate}
         >
           Create
         </IonButton>
@@ -130,6 +126,7 @@ const Page: React.FC = () => {
         <IonButton
           style={{ float: "right", marginRight: "37px", marginBottom: "35px" }}
           color="high1"
+        
         >
           Clear
         </IonButton>
