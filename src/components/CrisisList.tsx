@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 import { IonContent, IonHeader, IonPage } from "@ionic/react";
 import Header from "../components/Header";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const CrisisList: React.FC = () => {
   var [crisisObjects, setCrisisObjects] = useState<any>("");
@@ -24,28 +31,37 @@ const CrisisList: React.FC = () => {
       <IonHeader>
         <Header />
       </IonHeader>
-      <IonContent class="bg">
-        <table>
-          <thead>
-            <tr>
-              <td>a</td>
-              <td>b</td>
-              <td>x</td>
-            </tr>
-          </thead>
-          <tbody>
+      <IonContent class="bg" className="ion-padding">  
+        <TableContainer component={Paper}>
+         <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Created By</TableCell>
+            <TableCell>Crisis Type</TableCell>
+            <TableCell>Crisis Severity</TableCell>
+            <TableCell>Location</TableCell>
+            <TableCell>Created At</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
             {Object.keys(crisisObjects).map((key) => (
-              <tr key={key}>
-                <td>{crisisObjects[key].createdBy}</td>
-                <td>{crisisObjects[key].type}</td>
-                <td>{crisisObjects[key].severity}</td>
-              </tr>
+              <TableRow key={key}>
+                <TableCell>{crisisObjects[key].createdBy}</TableCell>
+                <TableCell>{crisisObjects[key].type}</TableCell>
+                <TableCell>{crisisObjects[key].severity}</TableCell>
+                <TableCell>{crisisObjects[key].location.substr(0,28) + "..."}</TableCell>
+                <TableCell>{crisisObjects[key].Created_At}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
+        </TableContainer>
       </IonContent>
     </IonPage>
   );
 };
+
+
+
 
 export default CrisisList;

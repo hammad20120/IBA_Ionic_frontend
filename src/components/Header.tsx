@@ -10,7 +10,7 @@ import { useParams } from "react-router";
 import firebase from "firebase";
 import SignoutPopover from "../components/SignoutPopover";
 
-const Search: React.FC = () => {
+const Header: React.FC = () => {
   const { name } = useParams<{ name: string }>();
   const user = firebase.auth().currentUser;
 
@@ -34,4 +34,4 @@ const Search: React.FC = () => {
   );
 };
 
-export default Search;
+export default Header;

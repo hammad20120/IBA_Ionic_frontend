@@ -25,6 +25,7 @@ import firebase from "firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { CrisisState } from "../reducers/CrisisReducer";
+import {Created_At, toast} from "../firebaseConfig/toast";
 
 const Page: React.FC = () => {
   const [RenderMap, setRenderMap] = useState<boolean>(false);
@@ -34,24 +35,14 @@ const Page: React.FC = () => {
   const onCrisisCreate = () => {
     var user_id = user?.uid;
     var createdBy = user?.displayName;
-    var today = new Date();
-    var created_At =
-      today.getFullYear() +
-      "-" +
-      (today.getMonth() + 1) +
-      "-" +
-      today.getDate() +
-      " " +
-      today.getHours() +
-      ":" +
-      today.getMinutes() +
-      ":" +
-      today.getSeconds();
-
+  
     firebase
       .database()
       .ref("crisis")
-      .push({ ...Crisis, user_id, createdBy, created_At });
+      .push({ ...Crisis, user_id, createdBy, Created_At })
+      .then(() => {
+        toast("Crisis Created Successfully");
+      })
   };
 
   useEffect(() => {

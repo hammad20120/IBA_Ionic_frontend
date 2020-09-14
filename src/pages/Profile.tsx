@@ -15,25 +15,15 @@ import { toast } from "../firebaseConfig/toast";
 
 import "../CSS/LoginRegister.css";
 import firebase from "firebase";
+import {Created_At} from "../firebaseConfig/toast";
 
 const Profile: React.FC = () => {
   const user = firebase.auth().currentUser;
   var email = user?.email;
   var uid = user != null ? user.uid : "";
   var username = user?.displayName;
-  var today = new Date();
-  var Created_At =
-    today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1) +
-    "-" +
-    today.getDate() +
-    " " +
-    today.getHours() +
-    ":" +
-    today.getMinutes() +
-    ":" +
-    today.getSeconds();
+ 
+  
 
   const [contact, setContact] = useState("");
   const [cnic, setCnic] = useState("");
