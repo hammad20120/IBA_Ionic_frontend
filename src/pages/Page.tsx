@@ -22,21 +22,24 @@ import "../CSS/Page.css";
 import ResourcesDashboard from "../components/ResourcesDashboard";
 import Alerts from "../components/Alerts";
 import SearchLocation from "../components/SearchLocation";
+import Header from "../components/Header";
 import Slider from "../components/Slider";
 import CrisisDropdown from "../components/CrisisDropdown";
 import MapLeaflet from "../components/Map";
 
 import firebase from "firebase";
-import SignoutPopover from "../components/SignoutPopover";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { CrisisState } from "../reducers/CrisisReducer";
 
+
 const Page: React.FC = () => {
-  const { name } = useParams<{ name: string }>();
+  
 
   const [RenderMap, setRenderMap] = useState<boolean>(false);
   const Crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
+  const user = firebase.auth().currentUser;
 
   const onCrisisCreate = () => {
     var user_id =  user?.uid;
@@ -53,26 +56,14 @@ const Page: React.FC = () => {
     setTimeout(() => setRenderMap(true), 700);
   }, []);
 
-  const user = firebase.auth().currentUser;
+
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar class="bg-class">
-          <IonButtons slot="start">
-            <IonMenuButton />
-          </IonButtons>
-          <IonTitle slot="start">{name}</IonTitle>
-          {user && <SignoutPopover />}
-          <IonLabel
-            slot="end"
-            style={{ fontSize: "120%" }}
-            className="ion-padding"
-          >
-            {user != null ? user.displayName?.split(" ")[0] : ""}
-          </IonLabel>
-        </IonToolbar>
-      </IonHeader>
+    
+    <IonHeader>
+      <Header />
+    </IonHeader>
 
       <IonContent class="bg">
         <IonGrid>
