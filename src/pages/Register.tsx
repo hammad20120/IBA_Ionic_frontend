@@ -11,6 +11,7 @@ import {
   IonRow,
   IonCol,
   IonItem,
+  IonLabel,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -27,19 +28,23 @@ const Register: React.FC = () => {
 
   check();
   async function register() {
-    if (email.trim() === "" || password.trim() === "") {
-      toast("Email or Password is empty");
-    }
 
     setBusy(true);
     if (password === cpassword) {
       const res = await registerUser(username, email, password);
       if (res) {
-        toast("Signed Up Successfully");
+        toast("Signed Up Successfully").then(() =>{
+          setTimeout(function () {
+            window.location.assign("/profile");
+          }, 2000)
+        })
       }
     } else {
       toast("Password does not match");
     }
+
+
+
     setBusy(false);
   }
   return (
@@ -62,32 +67,37 @@ const Register: React.FC = () => {
               </div>
               <div className="ion-padding">
                 <IonItem lines="none">
-                <IonInput
-                  placeholder="User Name"
-                  onIonChange={(e: any) => setUsername(e.target.value)}
-                />
+                  <IonLabel position="floating">User Name</IonLabel>
+                  <IonInput
+                    type="text"
+                    onIonChange={(e: any) => setUsername(e.target.value)}
+                    required
+                  />
                 </IonItem>
                 <IonItem lines="none">
+                  <IonLabel position="floating">Email</IonLabel>
                   <IonInput
                     type="email"
-                    placeholder="Email"
                     onIonChange={(e: any) => setEmail(e.target.value)}
+                    required
                   />
                 </IonItem>
 
                 <IonItem lines="none">
+                  <IonLabel position="floating">Password</IonLabel>
                   <IonInput
                     type="password"
-                    placeholder="Passowrd"
                     onIonChange={(e: any) => setPassword(e.target.value)}
+                    required
                   />
                 </IonItem>
                 <IonItem lines="none">
-                <IonInput
-                  type="password"
-                  placeholder="Confirm Passowrd"
-                  onIonChange={(e: any) => setCpassword(e.target.value)}
-                />
+                  <IonLabel position="floating">Confirm Password</IonLabel>
+                  <IonInput
+                    type="password"
+                    onIonChange={(e: any) => setCpassword(e.target.value)}
+                    required
+                  />
                 </IonItem>
               </div>
 
@@ -104,7 +114,7 @@ const Register: React.FC = () => {
 
               <div className="ion-padding">
                 <p style={{ textAlign: "center" }}>
-                  Already have an Account? 
+                  Already have an Account?
                   <Link to="/login" style={{ textDecoration: "none" }}>
                     Login
                   </Link>
