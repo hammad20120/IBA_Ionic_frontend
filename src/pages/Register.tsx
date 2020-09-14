@@ -1,9 +1,6 @@
 import {
   IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
   IonInput,
   IonButton,
   IonLoading,
@@ -28,22 +25,19 @@ const Register: React.FC = () => {
 
   check();
   async function register() {
-
     setBusy(true);
     if (password === cpassword) {
       const res = await registerUser(username, email, password);
       if (res) {
-        toast("Signed Up Successfully").then(() =>{
+        toast("Signed Up Successfully").then(() => {
           setTimeout(function () {
             window.location.assign("/profile");
-          }, 2000)
-        })
+          }, 2000);
+        });
       }
     } else {
       toast("Password does not match");
     }
-
-
 
     setBusy(false);
   }

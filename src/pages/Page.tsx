@@ -1,11 +1,7 @@
 import {
-  IonButtons,
   IonContent,
   IonHeader,
-  IonMenuButton,
   IonPage,
-  IonTitle,
-  IonToolbar,
   IonButton,
   IonCard,
   IonCardHeader,
@@ -13,11 +9,8 @@ import {
   IonRow,
   IonGrid,
   IonCol,
-  IonLabel,
-  IonIcon,
 } from "@ionic/react";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
 import "../CSS/Page.css";
 import ResourcesDashboard from "../components/ResourcesDashboard";
 import Alerts from "../components/Alerts";
@@ -33,37 +26,43 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { CrisisState } from "../reducers/CrisisReducer";
 
-
 const Page: React.FC = () => {
-  
-
   const [RenderMap, setRenderMap] = useState<boolean>(false);
   const Crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
   const user = firebase.auth().currentUser;
 
   const onCrisisCreate = () => {
-    var user_id =  user?.uid;
+    var user_id = user?.uid;
     var createdBy = user?.displayName;
     var today = new Date();
-    var created_At = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() +
-    " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var created_At =
+      today.getFullYear() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getDate() +
+      " " +
+      today.getHours() +
+      ":" +
+      today.getMinutes() +
+      ":" +
+      today.getSeconds();
 
-   firebase.database().ref("crisis").push({...Crisis, user_id, createdBy, created_At });
-
+    firebase
+      .database()
+      .ref("crisis")
+      .push({ ...Crisis, user_id, createdBy, created_At });
   };
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
   }, []);
 
-
-
   return (
     <IonPage>
-    
-    <IonHeader>
-      <Header />
-    </IonHeader>
+      <IonHeader>
+        <Header />
+      </IonHeader>
 
       <IonContent class="bg">
         <IonGrid>
@@ -126,7 +125,6 @@ const Page: React.FC = () => {
         <IonButton
           style={{ float: "right", marginRight: "37px", marginBottom: "35px" }}
           color="high1"
-        
         >
           Clear
         </IonButton>

@@ -1,10 +1,6 @@
 import {
   IonContent,
-  IonCard,
-  IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
   IonInput,
   IonButton,
   IonLoading,
@@ -12,7 +8,7 @@ import {
   IonRow,
   IonCol,
   IonItem,
-  IonLabel
+  IonLabel,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -54,7 +50,9 @@ const Login: React.FC = () => {
               size-xs="12"
             >
               <div className="ion-text-center">
-                <h4 className="ion-padding" style={{ fontSize: "150%" }}>Login Form</h4>
+                <h4 className="ion-padding" style={{ fontSize: "150%" }}>
+                  Login Form
+                </h4>
               </div>
               <div className="ion-padding">
                 <IonItem lines="none">
@@ -66,8 +64,8 @@ const Login: React.FC = () => {
                   />
                 </IonItem>
 
-                <IonItem lines="none" >
-                <IonLabel position="floating">Password</IonLabel>
+                <IonItem lines="none">
+                  <IonLabel position="floating">Password</IonLabel>
                   <IonInput
                     type="password"
                     onIonChange={(e: any) => setPassword(e.target.value)}
@@ -88,8 +86,11 @@ const Login: React.FC = () => {
               </div>
 
               <div className="ion-padding">
-                <p style={{textAlign: "center"}}>
-                  Don't have an Account? <Link to="/register" style={{textDecoration: "none"}}>Register</Link>
+                <p style={{ textAlign: "center" }}>
+                  Don't have an Account?{" "}
+                  <Link to="/register" style={{ textDecoration: "none" }}>
+                    Register
+                  </Link>
                 </p>
               </div>
             </IonCol>
