@@ -6,6 +6,7 @@ export interface CrisisState {
   lat: number;
   lng: number;
   severity: string;
+  resources: string[];
   createdBy: string;
 }
 
@@ -16,6 +17,7 @@ const initState: CrisisState = {
   type: "",
   severity: "",
   createdBy: "",
+  resources: [],
 };
 
 export const crisisReducer = (
@@ -46,6 +48,12 @@ export const crisisReducer = (
       return {
         ...state,
         type: action.payload.type,
+      };
+
+    case "UPDATE_RESOURCES":
+      return {
+        ...state,
+        resources: action.payload.resources,
       };
 
     default:

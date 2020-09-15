@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonContent,
   IonItem,
@@ -7,10 +7,14 @@ import {
   IonCard,
   IonRippleEffect,
   IonRow,
-  IonCol
+  IonCol,
 } from "@ionic/react";
 import { fastFood, medkit, car, man, bonfire, star } from "ionicons/icons";
 import "../CSS/Resources.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+import { CrisisState } from "../reducers/CrisisReducer";
+import { updateResources } from "../actions/crisisAction";
 
 interface selectedArray {
   ambulance: boolean;
@@ -31,6 +35,14 @@ const ResourcesDashboard: React.FC = () => {
     rescuevehice: false,
   });
 
+  const [resourcesArray, setResourcesArray] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
+
+  useEffect(() => {
+    dispatch(updateResources({ ...crisis, resources: resourcesArray }));
+  }, [resourcesArray]);
+
   const selectHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
     name: string,
@@ -40,6 +52,15 @@ const ResourcesDashboard: React.FC = () => {
       ...prev,
       [name]: !value,
     }));
+
+    if (value) {
+      setResourcesArray([
+        ...resourcesArray.slice(0, resourcesArray.indexOf(name)),
+        ...resourcesArray.slice(resourcesArray.indexOf(name) + 1),
+      ]);
+    } else {
+      setResourcesArray((res) => [...res, name]);
+    }
   };
 
   return (

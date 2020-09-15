@@ -5,7 +5,8 @@ export type CrisisActionType = {
     | "UPDATE_POSITION"
     | "UPDATE_LOCATION_NAME"
     | "UPDATE_SEVERITY"
-    | "UPDATE_TYPE";
+    | "UPDATE_TYPE"
+    | "UPDATE_RESOURCES";
   payload: CrisisState;
 };
 
@@ -27,4 +28,9 @@ export const updateSeverity = (crisis: CrisisState): CrisisActionType => ({
 export const updateType = (crisis: CrisisState): CrisisActionType => ({
   type: "UPDATE_TYPE",
   payload: { ...crisis, type: crisis.type },
+});
+
+export const updateResources = (crisis: CrisisState): CrisisActionType => ({
+  type: "UPDATE_RESOURCES",
+  payload: { ...crisis, resources: crisis.resources },
 });
