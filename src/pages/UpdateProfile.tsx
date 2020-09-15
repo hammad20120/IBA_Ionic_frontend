@@ -17,7 +17,7 @@ import "../CSS/LoginRegister.css";
 import firebase from "firebase";
 import {Created_At} from "../firebaseConfig/toast";
 
-const Profile: React.FC = () => {
+const UpdateProfile: React.FC = () => {
   const user = firebase.auth().currentUser;
   var email = user?.email;
   var uid = user != null ? user.uid : "";
@@ -42,7 +42,7 @@ const Profile: React.FC = () => {
       .then(() => {
         setTimeout(function () {
           window.location.assign("/");
-        }, 3000);
+        }, 2000);
       });
   }
 
@@ -122,4 +122,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default UpdateProfile;

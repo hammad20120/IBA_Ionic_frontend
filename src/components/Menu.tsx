@@ -16,6 +16,7 @@ import {
   carSharp,
   alertCircleOutline,
   alertCircleSharp,
+  personCircleOutline
 } from "ionicons/icons";
 import "../CSS/Menu.css";
 import MenuItem from "./MenuItem";
@@ -80,6 +81,14 @@ const appPages: AppPage[] = [
     type: "link",
     subPages: [],
   },
+  {
+    title: "Profile",
+    url: "/profile",
+    iosIcon: personCircleOutline,
+    mdIcon: personCircleOutline,
+    type: "link",
+    subPages: [],
+  }
 ];
 
 const Menu: React.FC = () => {
