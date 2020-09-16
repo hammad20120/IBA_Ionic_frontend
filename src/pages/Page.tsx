@@ -35,11 +35,12 @@ const Page: React.FC = () => {
   const onCrisisCreate = () => {
     var user_id = user?.uid;
     var createdBy = user?.displayName;
+    var status = "Pending"
   
     firebase
       .database()
       .ref("crisis")
-      .push({ ...Crisis, user_id, createdBy, Created_At })
+      .push({ ...Crisis, user_id, createdBy, Created_At, status })
       .then(() => {
         toast("Crisis Created Successfully");
       })

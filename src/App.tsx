@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import UpdateProfile from "./pages/UpdateProfile";
 import Profile from "./components/Profile"
 import CrisisList from "./components/CrisisList";
+import JoinCrisis from "./components/JoinCrisis";
 import React from "react";
 import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -40,6 +41,7 @@ const App: React.FC = () => {
             <Redirect from="/" to="/page/Welcome" exact />
             <Route path="/crisislist" component={CrisisList} />
             <Route path="/profile" component={Profile} />
+            <Route path="/joincrisis/:id" component={JoinCrisis} />
           </IonRouterOutlet>
         </IonSplitPane>
 

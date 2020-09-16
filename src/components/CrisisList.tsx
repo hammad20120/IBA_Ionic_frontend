@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 import { IonContent, IonHeader, IonPage } from "@ionic/react";
 import Header from "../components/Header";
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 const CrisisList: React.FC = () => {
   var [crisisObjects, setCrisisObjects] = useState<any>("");
@@ -31,37 +31,40 @@ const CrisisList: React.FC = () => {
       <IonHeader>
         <Header />
       </IonHeader>
-      <IonContent class="bg" className="ion-padding">  
+      <IonContent class="bg" className="ion-padding">
         <TableContainer component={Paper}>
-         <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Created By</TableCell>
-            <TableCell>Crisis Type</TableCell>
-            <TableCell>Crisis Severity</TableCell>
-            <TableCell>Location</TableCell>
-            <TableCell>Created At</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-            {Object.keys(crisisObjects).map((key) => (
-              <TableRow key={key}>
-                <TableCell>{crisisObjects[key].createdBy}</TableCell>
-                <TableCell>{crisisObjects[key].type}</TableCell>
-                <TableCell>{crisisObjects[key].severity}</TableCell>
-                <TableCell>{crisisObjects[key].location.substr(0,28) + "..."}</TableCell>
-                <TableCell>{crisisObjects[key].Created_At}</TableCell>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Created By</TableCell>
+                <TableCell>Crisis Type</TableCell>
+                <TableCell>Crisis Severity</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>View/Join Crisis</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {Object.keys(crisisObjects).map((key) => (
+                <TableRow>
+                  <TableCell>{crisisObjects[key].createdBy}</TableCell>
+                  <TableCell>{crisisObjects[key].type}</TableCell>
+                  <TableCell>{crisisObjects[key].severity}</TableCell>
+                  <TableCell>{crisisObjects[key].status}</TableCell>
+              
+                  <TableCell>
+                    <a
+                      href={"/joincrisis/" + key}
+                      style={{ textDecoration: "none" }}
+                    >View/Join</a>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </TableContainer>
       </IonContent>
     </IonPage>
   );
 };
-
-
-
 
 export default CrisisList;

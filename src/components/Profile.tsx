@@ -79,7 +79,7 @@ const Profile: React.FC = () => {
                   <IonLabel>{profile.city}</IonLabel>
                 </IonCol>
                 <IonCol size="12" offset-sm="1" size-sm="5">
-                  <IonLabel>Account Created: </IonLabel>
+                  <IonLabel>Account Updated: </IonLabel>
                   <IonLabel>{profile.Created_At}</IonLabel>
                 </IonCol>
               </IonRow>
