@@ -15,27 +15,28 @@ import { toast } from "../firebaseConfig/toast";
 
 import "../CSS/LoginRegister.css";
 import firebase from "firebase";
-import {Created_At} from "../firebaseConfig/toast";
+
 
 const UpdateProfile: React.FC = () => {
+
   const user = firebase.auth().currentUser;
-  var email = user?.email;
   var uid = user != null ? user.uid : "";
-  var username = user?.displayName;
- 
+  var username=user?.displayName;
+
   
 
   const [contact, setContact] = useState("");
   const [cnic, setCnic] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
+ 
 
   async function profile() {
     firebase
       .database()
       .ref("users")
       .child(uid)
-      .set({ contact, cnic, address, city, email, username, Created_At })
+      .update({ contact, cnic, address, city, username })
       .then(() => {
         toast("Profile Updated Successfully");
       })

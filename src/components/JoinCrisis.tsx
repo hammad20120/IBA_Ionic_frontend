@@ -30,11 +30,14 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
   var [crisisObjects, setCrisisObjects] = useState<any>("");
   const [RenderMap, setRenderMap] = useState<boolean>(false);
   const [resources, setResourceList] = useState<string[]>([]);
-
   const [ResourcesToBeAdded, setResourcesToBeAdded] = useState<string[]>([]);
+  var [userObjects, setUserObject] = useState<any>("");
+  var user = firebase.auth().currentUser;
+  var user_id=user!= null ? user.uid:""
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
+
     firebase
       .database()
       .ref(`crisis/` + match.params.id)
@@ -45,7 +48,22 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
           });
         }
       });
+
+      firebase
+      .database()
+      .ref(`users/` + user_id)
+      .on("value", (snapshot) => {
+        if (snapshot.val() != null) {
+          setUserObject({
+            ...snapshot.val(),
+          });
+        }
+      });
+
+
+
   }, []);
+
 
   useEffect(() => {
     ResourcesToBeAdded.length > 0 &&
@@ -53,16 +71,32 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
         .database()
         .ref("crisis/" + match.params.id)
         .child("resources")
-        .update([...crisisObjects.resources, ...ResourcesToBeAdded])
-        .then(() => {
-          toast("Crisis Joined Successfully");
-        });
+        .update([...crisisObjects.resources, ...ResourcesToBeAdded]);
   }, [ResourcesToBeAdded]);
 
+
+
+   
+
+  //id and resources added to crisis table
   const onJoinCrisis = () => {
     setResourcesToBeAdded(
       resources.filter((item) => crisisObjects.resources.indexOf(item) === -1)
     );
+
+    var user_id = user?.uid!;
+
+    firebase
+      .database()
+      .ref("crisis/" + match.params.id)
+      .child("Joined_Users")
+      .update([...crisisObjects.Joined_Users, user_id]);
+
+    firebase
+      .database()
+      .ref("users/" + user_id)
+      .child("Joined_Crisis")
+      .update([...userObjects.Joined_Crisis, match.params.id]);
   };
 
   return (
@@ -142,6 +176,15 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
                 <IonCol size="12" offset-sm="1" size-sm="6">
                   <IonLabel>Address: </IonLabel>
                   <IonLabel>{crisisObjects.location}</IonLabel>
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol>
+                  <IonCardHeader className="ion-text-center">
+                    <h3 style={{ color: "black", fontSize: "150%" }}>
+                      Users Joined
+                    </h3>
+                  </IonCardHeader>
                 </IonCol>
               </IonRow>
             </IonCardContent>

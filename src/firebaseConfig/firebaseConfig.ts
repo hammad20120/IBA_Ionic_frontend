@@ -1,5 +1,6 @@
 import * as firebase from "firebase";
 import { toast } from "./toast";
+import { Created_At } from "./toast";
 
 var firebaseConfig = {
   apiKey: "AIzaSyDz-co1vdvQQCypW7VKFo7vEFkObZMDG_I",
@@ -11,7 +12,6 @@ var firebaseConfig = {
   appId: "1:834966760115:web:4429004075a959f70b1ec6",
   measurementId: "G-E0QEH7L5MK",
 };
-
 
 firebase.initializeApp(firebaseConfig);
 
@@ -29,19 +29,43 @@ export async function loginUser(email: string, password: string) {
   }
 }
 
-export async function registerUser(displayName: string, email: string, password: string) {
+export async function registerUser(
+  displayName: string,
+  email: string,
+  password: string
+) {
+
   try {
     const res = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-			.then(() => {
-				const user = firebase.auth().currentUser;
-				if (user) {
-					user.updateProfile({
-						displayName: displayName,
-					});
-				}
-			});
+      .then(() => {
+        const user = firebase.auth().currentUser;
+        if (user) {
+          user.updateProfile({
+            displayName: displayName,
+          });
+        }
+      })
+      .then(() => {
+        var Joined_Crisis = "";
+        var Crisis_Created = "";
+        firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          firebase
+            .database()
+            .ref("users")
+            .child(user.uid)
+            .set({
+              username: user.displayName,
+              email:  user.email,
+              Created_At,
+              Joined_Crisis,
+              Crisis_Created,
+            });
+        }
+      });
+      });
 
     console.log(res);
     return true;
@@ -51,20 +75,22 @@ export async function registerUser(displayName: string, email: string, password:
   }
 }
 
-export function signout(){
-  firebase.auth().signOut().then(() =>{
-    window.location.assign('/login');
-  })
+export function signout() {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      window.location.assign("/login");
+    });
 }
 
-export function check(){
-  firebase.auth().onAuthStateChanged(user => {
-    if (user){
-    console.log("logged in")
-    console.log(user.displayName)
-  }
-  else{
-    console.log("logged out")
-  }
-  })
+export function check() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      console.log("logged in");
+      console.log(user.displayName);
+    } else {
+      console.log("logged out");
+    }
+  });
 }

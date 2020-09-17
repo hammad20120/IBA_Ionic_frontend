@@ -41,6 +41,8 @@ const Page: React.FC = () => {
       .database()
       .ref("crisis")
       .push({ ...Crisis, user_id, createdBy, Created_At, status })
+      .child("Joined_Users")
+      .set("")
       .then(() => {
         toast("Crisis Created Successfully");
       });

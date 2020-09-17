@@ -1,11 +1,9 @@
 import React, { createRef, useState } from "react";
-import L, { LeafletMouseEvent } from "leaflet";
+import L from "leaflet";
 
-import { Map, TileLayer, Marker, Circle } from "react-leaflet";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
-import { CrisisState } from "../reducers/CrisisReducer";
-import { updatePosition } from "../actions/crisisAction";
+import { Map, TileLayer, Marker } from "react-leaflet";
+import { useDispatch} from "react-redux";
+
 
 const MapCrisisDetails: React.FC<{ lat: number; lng: number }> = ({
   lat,

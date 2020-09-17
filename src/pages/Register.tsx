@@ -31,7 +31,7 @@ const Register: React.FC = () => {
       if (res) {
         toast("Signed Up Successfully").then(() => {
           setTimeout(function () {
-            window.location.assign("/profile");
+            window.location.assign("/updateprofile");
           }, 2000);
         });
       }
