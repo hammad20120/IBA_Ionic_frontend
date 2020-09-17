@@ -18,14 +18,14 @@ import SearchLocation from "../components/SearchLocation";
 import Header from "../components/Header";
 import Slider from "../components/Slider";
 import CrisisDropdown from "../components/CrisisDropdown";
-import MapLeaflet from "../components/Map";
+import MapLeaflet from "../components/MapDashboard";
 
 import firebase from "firebase";
 
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { CrisisState } from "../reducers/CrisisReducer";
-import {Created_At, toast} from "../firebaseConfig/toast";
+import { Created_At, toast } from "../firebaseConfig/toast";
 
 const Page: React.FC = () => {
   const [RenderMap, setRenderMap] = useState<boolean>(false);
@@ -35,15 +35,15 @@ const Page: React.FC = () => {
   const onCrisisCreate = () => {
     var user_id = user?.uid;
     var createdBy = user?.displayName;
-    var status = "Pending"
-  
+    var status = "Pending";
+
     firebase
       .database()
       .ref("crisis")
       .push({ ...Crisis, user_id, createdBy, Created_At, status })
       .then(() => {
         toast("Crisis Created Successfully");
-      })
+      });
   };
 
   useEffect(() => {

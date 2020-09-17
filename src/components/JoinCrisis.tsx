@@ -12,12 +12,14 @@ import {
   IonCol,
   IonRow,
   IonItem,
-  IonButton
+  IonButton,
 } from "@ionic/react";
 import Header from "./Header";
 import firebase from "firebase";
 import ResourcesDashboard from "./ResourcesDashboard";
-
+import ResourcesCrisisDetails from "./ResourcesCrisisDetails";
+import MapCrisisDetails from "./MapCrisisDetails";
+import "../CSS/JoinCrisis.css";
 interface IDMatchProps
   extends RouteComponentProps<{
     id: string;
@@ -25,8 +27,10 @@ interface IDMatchProps
 
 const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
   var [crisisObjects, setCrisisObjects] = useState<any>("");
+  const [RenderMap, setRenderMap] = useState<boolean>(false);
 
   useEffect(() => {
+    setTimeout(() => setRenderMap(true), 700);
     firebase
       .database()
       .ref(`crisis/` + match.params.id)
@@ -47,22 +51,27 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
       <IonContent class="bg" className="ion-padding">
         <IonCard>
           <IonGrid>
-          <IonRow>
-                <IonCol>
-                  <IonCardHeader className="ion-text-center">
-                    <h3 style={{ color: "black", fontSize: "150%" }}>
-                      Crisis Location (MAP)
-                    </h3>
-                  </IonCardHeader>
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol size="12" offset-sm="5">
-                  <IonItem lines="none">
-                    <IonLabel>Map placement</IonLabel>
-                  </IonItem>
-                </IonCol>
-              </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonCardHeader className="ion-text-center">
+                  <h3 style={{ color: "black", fontSize: "150%" }}>
+                    Crisis Location (MAP)
+                  </h3>
+                </IonCardHeader>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol size="12">
+                <IonItem lines="none">
+                  {RenderMap && crisisObjects && (
+                    <MapCrisisDetails
+                      lat={crisisObjects.lat}
+                      lng={crisisObjects.lng}
+                    />
+                  )}
+                </IonItem>
+              </IonCol>
+            </IonRow>
           </IonGrid>
         </IonCard>
         <IonCard>
@@ -117,13 +126,12 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
           </IonGrid>
         </IonCard>
         <IonCard className="second-card">
-          <ResourcesDashboard />
+          <ResourcesCrisisDetails resources={crisisObjects.resources} />
         </IonCard>
         <IonButton
           style={{ float: "right", marginRight: "25px", marginBottom: "35px" }}
           color="themecolor"
           className="ion=padding"
-        
         >
           Join Crisis
         </IonButton>
