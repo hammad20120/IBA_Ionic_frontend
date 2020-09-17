@@ -31,8 +31,7 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
   const [RenderMap, setRenderMap] = useState<boolean>(false);
   const [resources, setResourceList] = useState<string[]>([]);
 
-
- 
+  const [ResourcesToBeAdded, setResourcesToBeAdded] = useState<string[]>([]);
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
@@ -48,17 +47,25 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
       });
   }, []);
 
-  
-
   const onJoinCrisis = () => {
+    setResourcesToBeAdded(
+      resources.filter((item) => crisisObjects.resources.indexOf(item) === -1)
+    );
+
+    crisisObjects &&
+      setCrisisObjects((crisis: any) => ({
+        ...crisis,
+        resources: [...crisis.resources, ...ResourcesToBeAdded],
+      }));
+
     firebase
       .database()
       .ref("crisis/" + match.params.id)
       .child("resources")
-      .update( {...resources} )
+      .update({ ...resources })
       .then(() => {
         toast("Crisis Joined Successfully");
-      })
+      });
   };
 
   return (
