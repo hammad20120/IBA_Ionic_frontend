@@ -8,7 +8,7 @@ import {
   IonRippleEffect,
   IonRow,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fastFood, medkit, car, man, bonfire, star } from "ionicons/icons";
 
 interface selectedArray {
@@ -46,9 +46,10 @@ const allResources: resourceList[] = [
   "rescuevehice",
 ];
 
-const ResourcesCrisisDetails: React.FC<{ resources: resourceList[] }> = (
-  props
-) => {
+const ResourcesCrisisDetails: React.FC<{
+  setResourceList: (a: string[]) => void;
+}> = ({ setResourceList }) => {
+  const [resourcesArray, setResourcesArray] = useState<string[]>([]);
   const [selected, setSelected] = useState<selectedArray>({
     ambulance: false,
     food: false,
@@ -57,6 +58,10 @@ const ResourcesCrisisDetails: React.FC<{ resources: resourceList[] }> = (
     police: false,
     rescuevehice: false,
   });
+
+  useEffect(() => {
+    setResourceList(resourcesArray);
+  }, [resourcesArray]);
 
   const selectHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -67,6 +72,15 @@ const ResourcesCrisisDetails: React.FC<{ resources: resourceList[] }> = (
       ...prev,
       [name]: !value,
     }));
+
+    if (value) {
+      setResourcesArray([
+        ...resourcesArray.slice(0, resourcesArray.indexOf(name)),
+        ...resourcesArray.slice(resourcesArray.indexOf(name) + 1),
+      ]);
+    } else {
+      setResourcesArray((res) => [...res, name]);
+    }
   };
   console.log(selected["ambulance"]);
 

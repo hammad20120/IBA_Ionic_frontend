@@ -28,6 +28,7 @@ interface IDMatchProps
 const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
   var [crisisObjects, setCrisisObjects] = useState<any>("");
   const [RenderMap, setRenderMap] = useState<boolean>(false);
+  const [resourceList, setResourceList] = useState<string[]>([]);
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
@@ -126,7 +127,7 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
           </IonGrid>
         </IonCard>
         <IonCard className="second-card">
-          <ResourcesCrisisDetails resources={crisisObjects.resources} />
+          <ResourcesCrisisDetails setResourceList={setResourceList} />
         </IonCard>
         <IonButton
           style={{ float: "right", marginRight: "25px", marginBottom: "35px" }}
