@@ -62,7 +62,7 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
       .database()
       .ref("crisis/" + match.params.id)
       .child("resources")
-      .update({ ...resources })
+      .update({ ...crisisObjects.resources })
       .then(() => {
         toast("Crisis Joined Successfully");
       });
