@@ -47,25 +47,22 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
       });
   }, []);
 
+  useEffect(() => {
+    ResourcesToBeAdded.length > 0 &&
+      firebase
+        .database()
+        .ref("crisis/" + match.params.id)
+        .child("resources")
+        .update([...crisisObjects.resources, ...ResourcesToBeAdded])
+        .then(() => {
+          toast("Crisis Joined Successfully");
+        });
+  }, [ResourcesToBeAdded]);
+
   const onJoinCrisis = () => {
     setResourcesToBeAdded(
       resources.filter((item) => crisisObjects.resources.indexOf(item) === -1)
     );
-
-    crisisObjects &&
-      setCrisisObjects((crisis: any) => ({
-        ...crisis,
-        resources: [...crisis.resources, ...ResourcesToBeAdded],
-      }));
-
-    firebase
-      .database()
-      .ref("crisis/" + match.params.id)
-      .child("resources")
-      .update({ ...crisisObjects.resources })
-      .then(() => {
-        toast("Crisis Joined Successfully");
-      });
   };
 
   return (
