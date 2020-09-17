@@ -54,10 +54,12 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
       .ref(`users/` + user_id)
       .on("value", (snapshot) => {
         if (snapshot.val() != null) {
+          snapshot.forEach(function(childNodes){
           setUserObject({
-            ...snapshot.val(),
+            ...childNodes.val(),
           });
-        }
+        })
+      }
       });
 
 
@@ -97,6 +99,8 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
       .ref("users/" + user_id)
       .child("Joined_Crisis")
       .update([...userObjects.Joined_Crisis, match.params.id]);
+
+      toast("Crisis Joined Successfully")
   };
 
   return (
