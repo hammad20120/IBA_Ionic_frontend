@@ -20,6 +20,7 @@ import ResourcesDashboard from "./ResourcesDashboard";
 import ResourcesCrisisDetails from "./ResourcesCrisisDetails";
 import MapCrisisDetails from "./MapCrisisDetails";
 import "../CSS/JoinCrisis.css";
+import { toast } from "../firebaseConfig/toast";
 interface IDMatchProps
   extends RouteComponentProps<{
     id: string;
@@ -28,7 +29,10 @@ interface IDMatchProps
 const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
   var [crisisObjects, setCrisisObjects] = useState<any>("");
   const [RenderMap, setRenderMap] = useState<boolean>(false);
-  const [resourceList, setResourceList] = useState<string[]>([]);
+  const [resources, setResourceList] = useState<string[]>([]);
+
+
+ 
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
@@ -43,6 +47,19 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
         }
       });
   }, []);
+
+  
+
+  const onJoinCrisis = () => {
+    firebase
+      .database()
+      .ref("crisis/" + match.params.id)
+      .child("resources")
+      .update( {...resources} )
+      .then(() => {
+        toast("Crisis Joined Successfully");
+      })
+  };
 
   return (
     <IonPage>
@@ -133,6 +150,7 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
           style={{ float: "right", marginRight: "25px", marginBottom: "35px" }}
           color="themecolor"
           className="ion=padding"
+          onClick={onJoinCrisis}
         >
           Join Crisis
         </IonButton>
