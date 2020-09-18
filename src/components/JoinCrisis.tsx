@@ -36,7 +36,7 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
   var user = firebase.auth().currentUser;
   var user_id = user != null ? user.uid : "";
 
-  var [usersInfo, setUsersInfo] = useState<any>("");
+  var [usersInfo, setUsersInfo] = useState<any[]>([]);
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
@@ -83,21 +83,22 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
 
     var user_id = user?.uid!;
 
-    firebase
-      .database()
-      .ref("crisis/" + match.params.id)
-      .child("Joined_Users")
-      .update([...crisisObjects.Joined_Users, user_id]);
+    crisisObjects.Joined_Users.indexOf(user_id) === -1 &&
+      firebase
+        .database()
+        .ref("crisis/" + match.params.id)
+        .child("Joined_Users")
+        .update([...crisisObjects.Joined_Users, user_id]);
 
-    firebase
-      .database()
-      .ref("users/" + user_id)
-      .child("Joined_Crisis")
-      .update([...userObjects.Joined_Crisis, match.params.id]);
+    userObjects.Joined_Crisis.indexOf(match.params.id) === -1 &&
+      firebase
+        .database()
+        .ref("users/" + user_id)
+        .child("Joined_Crisis")
+        .update([...userObjects.Joined_Crisis, match.params.id]);
 
     toast("Crisis Joined Successfully");
   };
-
 
   useEffect(() => {
     firebase
@@ -106,24 +107,31 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
       .child("Joined_Users")
       .on("value", (snapshot) => {
         if (snapshot.val() != null) {
-          var keys  = snapshot.val();
-          keys.forEach(function (key: string) {
-          firebase.database().ref('users').child(key).on("value", (snap) => {
-            if (snap.val() != null) {
-              setUsersInfo({...snap.val()}
-              );
-            }
-          })
-        })
+          var keys = snapshot.val();
+
+          var promises = keys.map((key: any) => {
+            return firebase.database().ref("users").child(key).once("value");
+          });
+
+          Promise.all(promises).then(function (snapshots) {
+            snapshots.forEach((snapshot: any) => {
+              setUsersInfo((user: any) => [...user, snapshot.val()]);
+            });
+          });
+
+          // keys.map((key: any) =>
+          //   firebase
+          //     .database()
+          //     .ref("users")
+          //     .child(key)
+          //     .once("value", (snap) => {
+          //       if (snap.val() != null) {
+          //       }
+          //     })
+          // );
         }
-      })
-
-    
+      });
   }, []);
-
-
-
-
 
   return (
     <IonPage>
@@ -213,11 +221,12 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
                   </IonCardHeader>
                 </IonCol>
               </IonRow>
-              {Object.keys(usersInfo).map((key) => (
-                  <IonRow>
+              {usersInfo.map((key: any) => (
+                <IonRow>
                   <IonCol size="12" offset-sm="1" size-sm="6">
                     <IonLabel>Name: </IonLabel>
-                    <IonLabel>{[usersInfo.username]}</IonLabel>
+
+                    <IonLabel>{key.username}</IonLabel>
                   </IonCol>
                 </IonRow>
               ))}
