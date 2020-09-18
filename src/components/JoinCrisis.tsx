@@ -21,6 +21,7 @@ import ResourcesCrisisDetails from "./ResourcesCrisisDetails";
 import MapCrisisDetails from "./MapCrisisDetails";
 import "../CSS/JoinCrisis.css";
 import { toast } from "../firebaseConfig/toast";
+import { updateShorthandPropertyAssignment } from "typescript";
 interface IDMatchProps
   extends RouteComponentProps<{
     id: string;
@@ -33,7 +34,9 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
   const [ResourcesToBeAdded, setResourcesToBeAdded] = useState<string[]>([]);
   var [userObjects, setUserObject] = useState<any>("");
   var user = firebase.auth().currentUser;
-  var user_id=user!= null ? user.uid:""
+  var user_id = user != null ? user.uid : "";
+
+  var [usersInfo, setUsersInfo] = useState<any>("");
 
   useEffect(() => {
     setTimeout(() => setRenderMap(true), 700);
@@ -49,23 +52,19 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
         }
       });
 
-      firebase
+    firebase
       .database()
       .ref(`users/` + user_id)
       .on("value", (snapshot) => {
         if (snapshot.val() != null) {
-          snapshot.forEach(function(childNodes){
-          setUserObject({
-            ...childNodes.val(),
+          snapshot.forEach(function (childNodes) {
+            setUserObject({
+              ...childNodes.val(),
+            });
           });
-        })
-      }
+        }
       });
-
-
-
   }, []);
-
 
   useEffect(() => {
     ResourcesToBeAdded.length > 0 &&
@@ -76,11 +75,7 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
         .update([...crisisObjects.resources, ...ResourcesToBeAdded]);
   }, [ResourcesToBeAdded]);
 
-
-
-   
-
-  //id and resources added to crisis table
+  //id and resources added to crisis table and crisis id added to user table
   const onJoinCrisis = () => {
     setResourcesToBeAdded(
       resources.filter((item) => crisisObjects.resources.indexOf(item) === -1)
@@ -100,8 +95,35 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
       .child("Joined_Crisis")
       .update([...userObjects.Joined_Crisis, match.params.id]);
 
-      toast("Crisis Joined Successfully")
+    toast("Crisis Joined Successfully");
   };
+
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref(`crisis/` + match.params.id)
+      .child("Joined_Users")
+      .on("value", (snapshot) => {
+        if (snapshot.val() != null) {
+          var keys  = snapshot.val();
+          keys.forEach(function (key: string) {
+          firebase.database().ref('users').child(key).on("value", (snap) => {
+            if (snap.val() != null) {
+              setUsersInfo({...snap.val()}
+              );
+            }
+          })
+        })
+        }
+      })
+
+    
+  }, []);
+
+
+
+
 
   return (
     <IonPage>
@@ -191,6 +213,14 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
                   </IonCardHeader>
                 </IonCol>
               </IonRow>
+              {Object.keys(usersInfo).map((key) => (
+                  <IonRow>
+                  <IonCol size="12" offset-sm="1" size-sm="6">
+                    <IonLabel>Name: </IonLabel>
+                    <IonLabel>{[usersInfo.username]}</IonLabel>
+                  </IonCol>
+                </IonRow>
+              ))}
             </IonCardContent>
           </IonGrid>
         </IonCard>
