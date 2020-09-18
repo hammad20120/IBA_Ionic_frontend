@@ -24,7 +24,7 @@ ion-menu.md ion-note {
 
 ion-menu.md ion-list-header, ion-menu.md ion-note {
   font-size: x-large;
-  padding-bottom: 15px;
+  padding-bottom: 12px;
   padding-top: 20px;
   padding-left: 25px;
   --ion-text-color: white;

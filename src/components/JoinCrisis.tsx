@@ -16,12 +16,10 @@ import {
 } from "@ionic/react";
 import Header from "./Header";
 import firebase from "firebase";
-import ResourcesDashboard from "./ResourcesDashboard";
 import ResourcesCrisisDetails from "./ResourcesCrisisDetails";
 import MapCrisisDetails from "./MapCrisisDetails";
 import "../CSS/JoinCrisis.css";
 import { toast } from "../firebaseConfig/toast";
-import { updateShorthandPropertyAssignment } from "typescript";
 interface IDMatchProps
   extends RouteComponentProps<{
     id: string;
@@ -109,26 +107,17 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
         if (snapshot.val() != null) {
           var keys = snapshot.val();
 
-          var promises = keys.map((key: any) => {
-            return firebase.database().ref("users").child(key).once("value");
-          });
-
-          Promise.all(promises).then(function (snapshots) {
-            snapshots.forEach((snapshot: any) => {
-              setUsersInfo((user: any) => [...user, snapshot.val()]);
+          if (keys) {
+            var promises = keys.map((key: any) => {
+              return firebase.database().ref("users").child(key).once("value");
             });
-          });
 
-          // keys.map((key: any) =>
-          //   firebase
-          //     .database()
-          //     .ref("users")
-          //     .child(key)
-          //     .once("value", (snap) => {
-          //       if (snap.val() != null) {
-          //       }
-          //     })
-          // );
+            Promise.all(promises).then(function (snapshots) {
+              snapshots.forEach((snapshot: any) => {
+                setUsersInfo((user: any) => [...user, snapshot.val()]);
+              });
+            });
+          }
         }
       });
   }, []);
@@ -221,11 +210,10 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
                   </IonCardHeader>
                 </IonCol>
               </IonRow>
+
               {usersInfo.map((key: any) => (
                 <IonRow>
                   <IonCol size="12" offset-sm="1" size-sm="6">
-                    <IonLabel>Name: </IonLabel>
-
                     <IonLabel>{key.username}</IonLabel>
                   </IonCol>
                 </IonRow>

@@ -4,19 +4,13 @@ import React, { useState } from "react";
 import {
   gridOutline,
   gridSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
-  refreshOutline,
-  refreshSharp,
   checkmarkOutline,
   checkmarkSharp,
-  checkmarkDoneOutline,
-  checkmarkDoneSharp,
-  carOutline,
-  carSharp,
   alertCircleOutline,
   alertCircleSharp,
-  personCircleOutline
+  personCircleOutline,
+  listCircle,
+  shareSocialOutline
 } from "ionicons/icons";
 import "../CSS/Menu.css";
 import MenuItem from "./MenuItem";
@@ -41,46 +35,33 @@ const appPages: AppPage[] = [
     subPages: [],
   },
   {
-    title: "Requests",
+    title: "Crisis",
     url: "",
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp,
+    iosIcon: alertCircleOutline,
+    mdIcon: alertCircleSharp,
     type: "submenu",
     subPages: [
       {
-        title: "Pending",
-        url: "/page/Pending",
-        iosIcon: refreshOutline,
-        mdIcon: refreshSharp,
+        title: "All Crisis",
+        url: "/crisislist",
+        iosIcon: listCircle,
+        mdIcon: listCircle,
       },
       {
-        title: "Approved",
+        title: "Your Crisis",
         url: "/page/Approved",
         iosIcon: checkmarkOutline,
         mdIcon: checkmarkSharp,
       },
       {
-        title: "Dispatched",
+        title: "Joined Crisis",
         url: "/page/Dispatched",
-        iosIcon: carOutline,
-        mdIcon: carSharp,
-      },
-      {
-        title: "Completed",
-        url: "/page/Completed",
-        iosIcon: checkmarkDoneOutline,
-        mdIcon: checkmarkDoneSharp,
+        iosIcon: shareSocialOutline,
+        mdIcon: shareSocialOutline,
       },
     ],
   },
-  {
-    title: "Crisis",
-    url: "/crisislist",
-    iosIcon: alertCircleOutline,
-    mdIcon: alertCircleSharp,
-    type: "link",
-    subPages: [],
-  },
+  
   {
     title: "Profile",
     url: "/profile",
