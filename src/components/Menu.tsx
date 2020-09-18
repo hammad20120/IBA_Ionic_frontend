@@ -49,13 +49,13 @@ const appPages: AppPage[] = [
       },
       {
         title: "Your Crisis",
-        url: "/page/Approved",
+        url: "/yourcrisis",
         iosIcon: checkmarkOutline,
         mdIcon: checkmarkSharp,
       },
       {
         title: "Joined Crisis",
-        url: "/page/Dispatched",
+        url: "/joincrisislist",
         iosIcon: shareSocialOutline,
         mdIcon: shareSocialOutline,
       },

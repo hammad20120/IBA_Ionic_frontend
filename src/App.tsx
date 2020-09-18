@@ -6,6 +6,8 @@ import UpdateProfile from "./pages/UpdateProfile";
 import Profile from "./components/Profile"
 import CrisisList from "./components/CrisisList";
 import JoinCrisis from "./components/JoinCrisis";
+import YourCrisisList from "./components/YourCrisisList";
+import JoinCrisisList from "./components/JoinCrisisList";
 import React from "react";
 import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -29,6 +31,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import CrisisDetails from "./components/CrisisDetails";
 
 const App: React.FC = () => {
   return (
@@ -42,6 +45,9 @@ const App: React.FC = () => {
             <Route path="/crisislist" component={CrisisList} />
             <Route path="/profile" component={Profile} />
             <Route path="/joincrisis/:id" component={JoinCrisis} />
+            <Route path="/yourcrisis" component={YourCrisisList} />
+            <Route path="/joincrisislist" component={JoinCrisisList} />
+            <Route path="/crisisdetails/:id" component={CrisisDetails} />
           </IonRouterOutlet>
         </IonSplitPane>
 
