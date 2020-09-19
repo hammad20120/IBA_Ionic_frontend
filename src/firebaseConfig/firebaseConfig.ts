@@ -49,7 +49,6 @@ export async function registerUser(
       })
       .then(() => {
         var Joined_Crisis = "";
-        var Crisis_Created = "";
         firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           firebase
@@ -57,11 +56,10 @@ export async function registerUser(
             .ref("users")
             .child(user.uid)
             .set({
-              username: user.displayName,
               email:  user.email,
               Created_At,
               Joined_Crisis,
-              Crisis_Created,
+              username: user.displayName,
             });
         }
       });
