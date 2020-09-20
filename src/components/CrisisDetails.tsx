@@ -11,15 +11,10 @@ import {
   IonGrid,
   IonCol,
   IonRow,
-  IonItem,
-  IonButton,
 } from "@ionic/react";
 import Header from "./Header";
 import firebase from "firebase";
-import ResourcesCrisisDetails from "./ResourcesCrisisDetails";
-import MapCrisisDetails from "./MapCrisisDetails";
 import "../CSS/JoinCrisis.css";
-import { toast } from "../firebaseConfig/toast";
 interface IDMatchProps
   extends RouteComponentProps<{
     id: string;
@@ -27,10 +22,6 @@ interface IDMatchProps
 
 const CrisisDetails: React.FC<IDMatchProps> = ({ match }) => {
   var [crisisObjects, setCrisisObjects] = useState<any>("");
-  var [userObjects, setUserObject] = useState<any>("");
-  var user = firebase.auth().currentUser;
-  var user_id = user != null ? user.uid : "";
-
   var [usersInfo, setUsersInfo] = useState<any[]>([]);
 
   useEffect(() => {

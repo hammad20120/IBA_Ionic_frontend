@@ -90,7 +90,7 @@ const ResourcesCrisisDetails: React.FC<{
         <IonGrid>
           <IonRow>
             <IonCol>
-              <h1 style={{ textAlign: "center" }}>Resources</h1>
+              <h1 style={{ textAlign: "center" }}>Add Resources</h1>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
