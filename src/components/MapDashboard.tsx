@@ -31,26 +31,28 @@ const MapLeaflet: React.FC = () => {
   });
 
   return (
-    <Map
-      ref={mapRef}
-      onzoomend={handleZoom}
-      className="map"
-      center={{ lat: Crisis.lat, lng: Crisis.lng }}
-      zoom={ZoomState}
-      onclick={(e: LeafletMouseEvent) =>
-        dispatch(
-          updatePosition({ ...Crisis, lat: e.latlng.lat, lng: e.latlng.lng })
-        )
-      }
-    >
-      <TileLayer
-        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Circle center={Crisis} fillColor="blue" radius={300} />
+    Crisis && (
+      <Map
+        ref={mapRef}
+        onzoomend={handleZoom}
+        className="map"
+        center={{ lat: Crisis.lat, lng: Crisis.lng }}
+        zoom={ZoomState}
+        onclick={(e: LeafletMouseEvent) =>
+          dispatch(
+            updatePosition({ ...Crisis, lat: e.latlng.lat, lng: e.latlng.lng })
+          )
+        }
+      >
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Circle center={Crisis} fillColor="blue" radius={300} />
 
-      <Marker icon={myIcon} position={Crisis} />
-    </Map>
+        <Marker icon={myIcon} position={Crisis} />
+      </Map>
+    )
   );
 };
 

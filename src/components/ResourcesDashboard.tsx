@@ -41,6 +41,20 @@ const ResourcesDashboard: React.FC = () => {
   const crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
 
   useEffect(() => {
+    if (crisis.resources.length !== resourcesArray.length) {
+      setResourcesArray([]);
+      setSelected({
+        ambulance: false,
+        food: false,
+        medical: false,
+        firetruck: false,
+        police: false,
+        rescuevehice: false,
+      });
+    }
+  }, [crisis.resources]);
+
+  useEffect(() => {
     dispatch(updateResources({ ...crisis, resources: resourcesArray }));
   }, [resourcesArray]);
 

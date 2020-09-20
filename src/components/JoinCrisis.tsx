@@ -230,29 +230,29 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
               </IonRow>
               <IonRow>
                 <IonCol size="12" offset-sm="1" size-sm="10">
-              <TableContainer component={Paper}>
-                <Table style={{color: "#000"}}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Contact</TableCell>
-                      <TableCell>Email</TableCell>
-                      <TableCell>City</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                  {usersInfo.map((key: any) => (
-                      <TableRow>
-                        <TableCell>{key.username}</TableCell>
-                        <TableCell>{key.contact}</TableCell>
-                        <TableCell>{key.email}</TableCell>
-                        <TableCell>{key.city}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              </IonCol>
+                  <TableContainer component={Paper}>
+                    <Table style={{ color: "#000" }}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Name</TableCell>
+                          <TableCell>Contact</TableCell>
+                          <TableCell>Email</TableCell>
+                          <TableCell>City</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {usersInfo.map((key: any) => (
+                          <TableRow>
+                            <TableCell>{key.username}</TableCell>
+                            <TableCell>{key.contact}</TableCell>
+                            <TableCell>{key.email}</TableCell>
+                            <TableCell>{key.city}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </IonCol>
               </IonRow>
             </IonCardContent>
           </IonGrid>
@@ -260,14 +260,20 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
         <IonCard className="second-card">
           <ResourcesCrisisDetails setResourceList={setResourceList} />
         </IonCard>
-        <IonButton
-          style={{ float: "right", marginRight: "25px", marginBottom: "35px" }}
-          color="themecolor"
-          className="ion=padding"
-          onClick={onJoinCrisis}
-        >
-          Join Crisis
-        </IonButton>
+        {crisisObjects && crisisObjects.Joined_Users.indexOf(user_id) === -1 && (
+          <IonButton
+            style={{
+              float: "right",
+              marginRight: "25px",
+              marginBottom: "35px",
+            }}
+            color="themecolor"
+            className="ion=padding"
+            onClick={onJoinCrisis}
+          >
+            Join Crisis
+          </IonButton>
+        )}
       </IonContent>
     </IonPage>
   );

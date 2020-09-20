@@ -20,16 +20,21 @@ import Slider from "../components/Slider";
 import CrisisDropdown from "../components/CrisisDropdown";
 import MapLeaflet from "../components/MapDashboard";
 
+import { clearCrisis } from "../actions/crisisAction";
+
 import firebase from "firebase";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { CrisisState } from "../reducers/CrisisReducer";
 import { Created_At, toast } from "../firebaseConfig/toast";
 
 const Page: React.FC = () => {
   const [RenderMap, setRenderMap] = useState<boolean>(false);
+
   const Crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
+  const dispatch = useDispatch();
+
   const user = firebase.auth().currentUser;
 
   const onCrisisCreate = () => {
@@ -42,10 +47,14 @@ const Page: React.FC = () => {
       .ref("crisis")
       .push({ ...Crisis, user_id, createdBy, Created_At, status })
       .child("Joined_Users")
-      .set("")
+      .set([user_id])
       .then(() => {
         toast("Crisis Created Successfully");
       });
+  };
+
+  const onCrisisClear = () => {
+    dispatch(clearCrisis(Crisis));
   };
 
   useEffect(() => {
@@ -119,6 +128,7 @@ const Page: React.FC = () => {
         <IonButton
           style={{ float: "right", marginRight: "37px", marginBottom: "35px" }}
           color="high1"
+          onClick={onCrisisClear}
         >
           Clear
         </IonButton>

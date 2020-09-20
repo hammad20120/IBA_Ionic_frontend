@@ -11,6 +11,12 @@ const CrisisDropdown: React.FC = () => {
   const [crisisType, setCrisisType] = useState<string>("");
   const crisis = useSelector<RootState, CrisisState>((state) => state.crisis);
 
+  useEffect(() => {
+    if (crisisType !== crisis.type) {
+      setCrisisType(crisis.type);
+    }
+  }, [crisis.type]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

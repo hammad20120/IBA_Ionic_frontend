@@ -16,6 +16,13 @@ export const Slider: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (Severity !== Crisis.severity) {
+      setSeverity(Crisis.severity);
+      setRangeValue(0);
+    }
+  }, [Crisis]);
+
+  useEffect(() => {
     dispatch(updateSeverity({ ...Crisis, severity: Severity }));
   }, [Severity]);
 

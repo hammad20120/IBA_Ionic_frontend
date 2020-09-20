@@ -15,7 +15,7 @@ const initState: CrisisState = {
   lat: 24.9462569,
   lng: 67.0203426,
   type: "",
-  severity: "",
+  severity: "Low",
   createdBy: "",
   resources: [],
 };
@@ -54,6 +54,15 @@ export const crisisReducer = (
       return {
         ...state,
         resources: action.payload.resources,
+      };
+
+    case "CLEAR_CRISIS":
+      return {
+        ...state,
+        type: "",
+        severity: "Low",
+        createdBy: "",
+        resources: [],
       };
 
     default:
