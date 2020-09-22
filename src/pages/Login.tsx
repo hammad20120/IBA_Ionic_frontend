@@ -11,18 +11,12 @@ import {
   IonLabel,
 } from "@ionic/react";
 import React, { useState, useEffect } from "react";
-import {
-  Redirect,
-  Link,
-} from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { any } from "prop-types";
 import { loginUser } from "../firebaseConfig/firebaseConfig";
 import { toast } from "../firebaseConfig/toast";
 import "../CSS/LoginRegister.css";
 import firebase from "firebase";
-
-
-
 
 const Login: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
@@ -42,9 +36,31 @@ const Login: React.FC = () => {
     setBusy(false);
   }
 
-  
 
-  return (
+  const [authUser, setAuthUser] = useState<Boolean>(false);
+
+    useEffect(() =>{
+       const unlisten = firebase.auth().onAuthStateChanged(
+          (authUser) => {
+            authUser
+              ? setAuthUser(true)
+              : setAuthUser(false);
+          },
+       );
+       return () => {
+           unlisten();
+       }
+    });
+
+    
+
+  return authUser ?
+  
+  <Redirect to ="/page/Welcome"/>
+  :
+  (
+
+
     <IonPage>
       <IonLoading message="Please Wait.." duration={0} isOpen={busy} />
       <IonContent class="bg-color" className="ion-padding">
@@ -106,7 +122,8 @@ const Login: React.FC = () => {
         </IonGrid>
       </IonContent>
     </IonPage>
-  );
+    )
+ 
 };
 
 export default Login;
