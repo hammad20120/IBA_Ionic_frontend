@@ -15,6 +15,8 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+var db = firebase.database();
+
 export async function loginUser(email: string, password: string) {
   try {
     const res = await firebase
@@ -34,7 +36,6 @@ export async function registerUser(
   email: string,
   password: string
 ) {
-
   try {
     const res = await firebase
       .auth()
@@ -42,28 +43,25 @@ export async function registerUser(
       .then(() => {
         const user = firebase.auth().currentUser;
         if (user) {
-          user.updateProfile({
-            displayName: displayName,
-          })   .then(() => {
-            var Joined_Crisis = "";
-            firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-              firebase
-                .database()
-                .ref("users")
-                .child(user.uid)
-                .set({
-                  email:  user.email,
-                  Created_At,
-                  Joined_Crisis,
-                  username: user.displayName,
-                });
-            }
-          });
-          });
+          user
+            .updateProfile({
+              displayName: displayName,
+            })
+            .then(() => {
+              var Joined_Crisis = "";
+              firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                  db.ref("users").child(user.uid).set({
+                    email: user.email,
+                    Created_At,
+                    Joined_Crisis,
+                    username: user.displayName,
+                  });
+                }
+              });
+            });
         }
-      })
-   
+      });
 
     console.log(res);
     return true;
@@ -81,4 +79,3 @@ export function signout() {
       window.location.assign("/login");
     });
 }
-

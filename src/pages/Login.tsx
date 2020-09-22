@@ -11,11 +11,18 @@ import {
   IonLabel,
 } from "@ionic/react";
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import {
+  Redirect,
+  Link,
+} from "react-router-dom";
+import { any } from "prop-types";
 import { loginUser } from "../firebaseConfig/firebaseConfig";
 import { toast } from "../firebaseConfig/toast";
 import "../CSS/LoginRegister.css";
 import firebase from "firebase";
+
+
+
 
 const Login: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
@@ -35,13 +42,7 @@ const Login: React.FC = () => {
     setBusy(false);
   }
 
-  useEffect (() =>{
-    firebase.auth().onAuthStateChanged((user) =>{
-      if(user && window.location.href === 'http://localhost:8100/login' ){
-        window.location.assign('/page/Welcome')
-      }
-    })
-  })
+  
 
   return (
     <IonPage>
