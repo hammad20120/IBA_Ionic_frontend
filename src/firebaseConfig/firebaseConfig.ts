@@ -44,26 +44,26 @@ export async function registerUser(
         if (user) {
           user.updateProfile({
             displayName: displayName,
+          })   .then(() => {
+            var Joined_Crisis = "";
+            firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+              firebase
+                .database()
+                .ref("users")
+                .child(user.uid)
+                .set({
+                  email:  user.email,
+                  Created_At,
+                  Joined_Crisis,
+                  username: user.displayName,
+                });
+            }
+          });
           });
         }
       })
-      .then(() => {
-        var Joined_Crisis = "";
-        firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          firebase
-            .database()
-            .ref("users")
-            .child(user.uid)
-            .set({
-              email:  user.email,
-              Created_At,
-              Joined_Crisis,
-              username: user.displayName,
-            });
-        }
-      });
-      });
+   
 
     console.log(res);
     return true;
@@ -82,13 +82,3 @@ export function signout() {
     });
 }
 
-export function check() {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      console.log("logged in");
-      console.log(user.displayName);
-    } else {
-      console.log("logged out");
-    }
-  });
-}

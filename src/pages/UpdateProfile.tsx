@@ -42,7 +42,7 @@ const UpdateProfile: React.FC = () => {
       })
       .then(() => {
         setTimeout(function () {
-          window.location.assign("/");
+          window.location.assign("/page/Welcome");
         }, 2000);
       });
   }

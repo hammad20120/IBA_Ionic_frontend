@@ -13,7 +13,7 @@ import {
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "../firebaseConfig/toast";
-import { check, registerUser } from "../firebaseConfig/firebaseConfig";
+import { registerUser } from "../firebaseConfig/firebaseConfig";
 import "../CSS/LoginRegister.css";
 
 const Register: React.FC = () => {
@@ -23,21 +23,26 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
 
-  check();
+
   async function register() {
     setBusy(true);
+    if(username===""){
+      toast("Please Enter Your Full Name")
+    }
+    else{
     if (password === cpassword) {
       const res = await registerUser(username, email, password);
       if (res) {
         toast("Signed Up Successfully").then(() => {
           setTimeout(function () {
             window.location.assign("/updateprofile");
-          }, 2000);
+          }, 1500);
         });
       }
     } else {
       toast("Password does not match");
     }
+  }
 
     setBusy(false);
   }

@@ -10,32 +10,39 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/react";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { check, loginUser } from "../firebaseConfig/firebaseConfig";
+import React, { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { loginUser } from "../firebaseConfig/firebaseConfig";
 import { toast } from "../firebaseConfig/toast";
 import "../CSS/LoginRegister.css";
+import firebase from "firebase";
 
 const Login: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  check();
-
   async function login() {
     setBusy(true);
     const res = await loginUser(email, password);
     if (res) {
-      toast("Logged in Successfully");
+      toast("Logged in Successfully").then(() => {
+        setTimeout(function () {
+          window.location.assign("/page/Welcome");
+        }, 1500);
+      });
     }
-
-    setTimeout(function () {
-      window.location.assign("/");
-    }, 2000);
-
     setBusy(false);
   }
+
+  useEffect (() =>{
+    firebase.auth().onAuthStateChanged((user) =>{
+      if(user && window.location.href === 'http://localhost:8100/login' ){
+        window.location.assign('/page/Welcome')
+      }
+    })
+  })
+
   return (
     <IonPage>
       <IonLoading message="Please Wait.." duration={0} isOpen={busy} />

@@ -32,6 +32,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import CrisisDetails from "./components/CrisisDetails";
+import firebase from 'firebase'
 
 const App: React.FC = () => {
   return (
@@ -41,7 +42,7 @@ const App: React.FC = () => {
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/page/:name" component={Page} exact />
-            <Redirect from="/" to="/page/Welcome" exact />
+            <Redirect from="/" to="/login" exact />
             <Route path="/crisislist" component={CrisisList} />
             <Route path="/profile" component={Profile} />
             <Route path="/joincrisis/:id" component={JoinCrisis} />
