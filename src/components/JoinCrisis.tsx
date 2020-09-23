@@ -42,6 +42,18 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
   var user = firebase.auth().currentUser;
   var user_id = user != null ? user.uid : "";
 
+  useEffect(() => {
+    user_id &&
+      firebase
+        .database()
+        .ref(`users/` + user_id)
+        .on("value", (snapshot) => {
+          if (snapshot.val() !== null) {
+            setUserObject(() => snapshot.val());
+          }
+        });
+  }, [user]);
+
   var [usersInfo, setUsersInfo] = useState<any[]>([]);
 
   useEffect(() => {
@@ -54,19 +66,6 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
         if (snapshot.val() != null) {
           setCrisisObjects({
             ...snapshot.val(),
-          });
-        }
-      });
-
-    firebase
-      .database()
-      .ref(`users/` + user_id)
-      .on("value", (snapshot) => {
-        if (snapshot.val() != null) {
-          snapshot.forEach(function (childNodes) {
-            setUserObject({
-              ...childNodes.val(),
-            });
           });
         }
       });
@@ -86,24 +85,30 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
     setResourcesToBeAdded(
       resources.filter((item) => crisisObjects.resources.indexOf(item) === -1)
     );
-       
-          crisisObjects.Joined_Users.indexOf(user_id) === -1 &&
-            firebase
-              .database()
-              .ref("crisis/" + match.params.id)
-              .child("Joined_Users")
-              .update([...crisisObjects.Joined_Users, user_id]);
 
+    crisisObjects.Joined_Users.indexOf(user_id) === -1 &&
+      firebase
+        .database()
+        .ref("crisis/" + match.params.id)
+        .child("Joined_Users")
+        .update([...crisisObjects.Joined_Users, user_id])
+        .then(() => {
           userObjects.Joined_Crisis.indexOf(match.params.id) === -1 &&
             firebase
               .database()
               .ref("users/" + user_id)
               .child("Joined_Crisis")
               .update([...userObjects.Joined_Crisis, match.params.id]);
-
+        })
+        .then(() => {
           toast("Crisis Joined Successfully");
-        
-  
+        })
+        .then(() => {
+          setTimeout(()=>{
+            window.location.reload();
+          }, 1500)
+
+        });
   };
 
   useEffect(() => {
@@ -248,10 +253,10 @@ const JoinCrisis: React.FC<IDMatchProps> = ({ match }) => {
           </IonGrid>
         </IonCard>
         {crisisObjects && crisisObjects.Joined_Users.indexOf(user_id) === -1 && (
-        <IonCard className="second-card">
-          <ResourcesCrisisDetails setResourceList={setResourceList} />
-        </IonCard>
-              )}
+          <IonCard className="second-card">
+            <ResourcesCrisisDetails setResourceList={setResourceList} />
+          </IonCard>
+        )}
         {crisisObjects && crisisObjects.Joined_Users.indexOf(user_id) === -1 && (
           <IonButton
             style={{
